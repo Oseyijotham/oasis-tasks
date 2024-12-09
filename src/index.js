@@ -9,7 +9,7 @@ import './index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename="Yello-Connect">
+      <BrowserRouter basename="oasis-tasks">
         <App />
       </BrowserRouter>
     </Provider>
