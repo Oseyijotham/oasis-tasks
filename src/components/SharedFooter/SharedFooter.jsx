@@ -11,7 +11,7 @@ export const SharedFooter = () => {
       <Suspense fallback={<div className={css.suspense}>Loading page...</div>}>
         <Outlet />
       </Suspense>
-      <div className={css.footer}>© 2024 - Yello Connect</div>
+      <div className={css.footer}>© 2024 - Oasis Tasks</div>
     </>
   );
 };

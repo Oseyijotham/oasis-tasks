@@ -8,26 +8,17 @@ import {
   IconLabel,
   Symbol,
   Button,
-  Greeting
+  Greeting,
+  IconLabelWrapper,
 } from './SharedLayout.styled';
-//import { useSelector } from 'react-redux';
 import { Suspense } from 'react';
-import logoImage from './call.png';
 import { logOut } from '../../redux/AuthRedux/operations';
 import { useDispatch } from 'react-redux';
 import { useAuthHook } from '../../customHook/customHook';
-//import css from './SharedLayout.module.css'
-/*import {
-  selectUser,
-  selectIsLoggedIn,
-  selectIsRefreshing,
-} from '../../redux/AuthRedux/selectors';
-*/
+import svg from '../SharedLayout/icons.svg';
+
 
 export const SharedLayout = () => {
-    //const isLoggedIn = useSelector(selectIsLoggedIn);
-    //const isRefreshing = useSelector(selectIsRefreshing);
-  //const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const { user } = useAuthHook();
   
@@ -37,10 +28,14 @@ export const SharedLayout = () => {
         <Symbol to="/">
           <Logo>
             <Frame role="img" aria-label="computer icon">
-              <img src={logoImage} alt="Logo" width="50px" />
+              <svg width="160px" height="47px">
+                <use href={`${svg}#icon-oasis-logo`}></use>
+              </svg>
             </Frame>
-            <IconLabel>Yello</IconLabel>
-            <IconLabel>Connect</IconLabel>
+            <IconLabelWrapper>
+              <IconLabel>Oasis</IconLabel>
+              <IconLabel>Tasks</IconLabel>
+            </IconLabelWrapper>
           </Logo>
         </Symbol>
         <div>
@@ -54,11 +49,10 @@ export const SharedLayout = () => {
           </Button>
         </nav>
       </Header>
-      
-        <Suspense fallback={<div>Loading page...</div>}>
-          <Outlet />
-        </Suspense>
-      
+
+      <Suspense fallback={<div>Loading page...</div>}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 };

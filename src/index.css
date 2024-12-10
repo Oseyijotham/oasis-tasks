@@ -11,11 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-   background-image: linear-gradient(
-    to bottom,
-    rgb(240, 164, 65) 50%,
-    #f1dbba
-  );
+  background-color: #01092D;
 }
 
 #root{
@@ -23,6 +19,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

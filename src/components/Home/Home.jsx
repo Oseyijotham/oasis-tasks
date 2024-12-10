@@ -43,7 +43,7 @@ export const Home = () => {
         </div>
       </div>
       <Link to="/sharedLayout/contacts" className={css.homeLink}>
-        Start Connecting
+        Start Planning
       </Link>
 
       {isLoading && !error && <div>Please wait...</div>}

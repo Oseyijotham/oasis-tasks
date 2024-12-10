@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
 
-axios.defaults.baseURL = 'https://yello-backend-s03r.onrender.com/api';
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -16,7 +16,10 @@ const clearAuthHeader = () => {
 export const register = createAsyncThunk(
   'auth/register',
   async ({ firstName, lastName, email, phone, password }, thunkAPI) => {
-    Notiflix.Loading.pulse('Registering Your Account...Please wait a bit, first requests can take up to 60 seconds', {
+    alert(
+      'Please wait a bit, first requests can take up to 60 seconds because the backend is hosted with a free plan'
+    );
+    Notiflix.Loading.pulse('Registering Your Account...', {
       svgColor: 'rgb(235, 144, 25)',
       fontFamily: 'DM Sans',
     });

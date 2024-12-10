@@ -9,32 +9,29 @@ export const Container = styled.div`
 
 export const Frame = styled.div`
   border-radius: 50%;
-  background-color: rgb(114, 17, 17);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
-  border: 3px solid #fff;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  border: none;
 `;
 
 export const Icon = styled.svg`
   fill: rgb(114, 17, 17);
 `;
 
-export const IconLabel = styled.span`
-  font-family: 'Sacramento';
-  font-size: 40px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 3px 3px 20px rgb(114, 17, 17), 5px 5px 5px #000000;
-  margin: 5px;
+export const IconLabelWrapper = styled.div`
+  display:flex;
+  align-items: flex-end;
+  gap: 5px;
+`;
 
-  &::first-letter {
-    font-size: 30px;
-  }
+export const IconLabel = styled.span`
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
 `;
 
 export const Greeting = styled.div`
@@ -60,10 +57,9 @@ export const Header = styled.header`
   padding: 20px;
   margin-bottom: 8px;
   margin-top: 8px;
-  border: none;
-  background-color: #c4253a;
-  background-image: linear-gradient(to bottom, rgb(235, 144, 25) 40%, #fff);
-  background-image: linear-gradient(rgb(235, 144, 25), #f1dbba);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.1) 0% 0% no-repeat padding-box;
+  backdrop-filter: blur(30px);
   border-radius: 30px;
   filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.3));
 
@@ -81,8 +77,8 @@ export const Header = styled.header`
 `;
 
 export const Logo = styled.div`
-  margin-left: 10px;
   font-weight: 700;
+  gap: 5px;
   display: flex;
   align-items: flex-end;
 `;
@@ -104,7 +100,7 @@ export const Link = styled(NavLink)`
     width: 100%;
     height: 4px;
     border-radius: 2px;
-    background-color: #fff;
+    background: linear-gradient(270deg, #fe3737 -32.31%, #5785ff 63.97%, #667eed 191.94%);
     transform: scaleX(0);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: left;
@@ -146,7 +142,7 @@ export const Button = styled.button`
     width: 100%;
     height: 4px;
     border-radius: 2px;
-    background-color: #fff;
+    background: linear-gradient(270deg, #fe3737 -32.31%, #5785ff 63.97%, #667eed 191.94%);
     transform: scaleX(0);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: left;
