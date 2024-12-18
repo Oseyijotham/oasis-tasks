@@ -51,26 +51,26 @@ export const ContactForm = ({ children }) => {
     const wrd = evt.target.value
     let hasExceeded = false;
     let nameRay;
-    if (wrd.length > 15) {
+    if (wrd.length > 30) {
       nameRay = [...wrd];
       nameRay.pop()
       evt.target.value = nameRay.join("");
       hasExceeded = true;
     }
     if ((hasExceeded === true)) {
-      Notiflix.Notify.warning('Maximum Charater limit is 15');
+      Notiflix.Notify.warning('Maximum Charater limit is 30');
     }
   }
 
   return (
-    <div className={css.phoneBook}>
-      <h2 className={css.formTitle}>Phonebook</h2>
+    <div className={css.taskBook}>
+      <h2 className={css.formTitle}>Taskbook</h2>
       <form onSubmit={handleSubmit} className={css.formSection}>
         <label className={css.loginLabel}>
-          <span className={css.formLabel}>Name:</span>
+          <span className={css.formLabel}>Task title:</span>
           <input
             type="text"
-            placeholder="Enter Name"
+            placeholder="Enter Task Title"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
@@ -82,17 +82,15 @@ export const ContactForm = ({ children }) => {
           />
         </label>
         <label>
-          <span className={css.formLabel}>Number:</span>
+          <span className={css.formLabel}>Due date:</span>
           <input
             type="number"
-            placeholder="Enter Number"
+            placeholder="Select Date"
             autoComplete="off"
             name="number"
             required
             id={contactNumberId}
             className={css.formInput}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           />
         </label>
         <div className={css.buttonArea}>
@@ -102,7 +100,7 @@ export const ContactForm = ({ children }) => {
             className={css.button}
             onClick={handleButtonPress}
           >
-            Add Contact
+            Add Task
           </button>
         </div>
       </form>

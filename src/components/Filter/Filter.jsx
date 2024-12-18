@@ -62,10 +62,10 @@ export const Filter = () => {
   return (
     <div className={css.contactList}>
       <label htmlFor={searchTermId}>
-        <span className={css.formLabel}>Find Contacts By Name:</span>
+        <span className={css.formLabel}>Search Tasks By Title:</span>
         <input
           type="text"
-          placeholder="Enter Name"
+          placeholder="Enter Task title"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
@@ -90,19 +90,12 @@ export const Filter = () => {
                   onClick={handleModalOpen}
                 >
                   <span className={css.contactsData} data-id={contact._id}>
-                    {contact.name}:{' '}
+                    <input type="checkbox" className={css.checkbox} />:{' '}
                     <span className={css.contactsPhone} data-id={contact._id}>
-                      {contact.phone}
+                      {contact.name}
                     </span>
                   </span>
                   <span className={css.contactsButtonArea}>
-                    <button
-                      className={css.contactsButton}
-                      name={contact._id}
-                      onClick={() => navigator.clipboard.writeText(contact.phone)}
-                    >
-                      Copy
-                    </button>
                     <button
                       type="submit"
                       className={css.contactsButton}
@@ -113,7 +106,7 @@ export const Filter = () => {
                     </button>
                   </span>
                 </li>
-              )
+              );
             }
           })}
         </ul>

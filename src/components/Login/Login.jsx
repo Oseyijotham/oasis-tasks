@@ -61,8 +61,10 @@ export const Login = () => {
               <div role="img" aria-label="computer icon" className={css.frame}>
                 <img src={logoImage} alt="Logo" width="50px" />
               </div>
-              <span className={css.iconLabel}>Yello</span>
-              <span className={css.iconLabel}>Connect</span>
+              <div className={css.iconLabelWrapper}>
+                <span className={css.iconLabel}>Oasis</span>
+                <span className={css.iconLabel}>Tasks</span>
+              </div>
             </div>
           </div>
 
@@ -92,17 +94,17 @@ export const Login = () => {
                     onChange={handleChange}
                   />
                 </label>
-                <button
-                  className={css.inputButton}
-                  name="button"
-                  type="submit"
-                >
+                <button className={css.inputButton} name="button" type="submit">
                   Log In
                 </button>
                 {isRegistered === false ? (
                   <>
                     <span className={css.inputText}>or</span>
-                    <NavLink className={css.inputButton} to="/register" onClick={handleButtonPress}>
+                    <NavLink
+                      className={css.inputButton}
+                      to="/register"
+                      onClick={handleButtonPress}
+                    >
                       Register
                     </NavLink>
                   </>

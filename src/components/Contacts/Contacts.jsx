@@ -30,7 +30,8 @@ export const Contacts = () => {
   const [isNameEditing, setNameEdit] = useState(false);
   const [nameValue, setNameValue] = useState("");
   const [isEmailEditing, setEmailEdit] = useState(false);
-  const [emailValue, setEmailValue] = useState('');
+   const myContact = useSelector(selectedContact);
+  const [emailValue, setEmailValue] = useState(myContact.email);
    const [isPhoneEditing, setPhoneEdit] = useState(false);
    const [phoneValue, setPhoneValue] = useState('');
   //const [idValue, setIdValue] = useState('');
@@ -38,7 +39,7 @@ export const Contacts = () => {
   const isLoading = useSelector(selectIsLoading);
   const contacts = useSelector(selectContacts);
   const isSlideLoading = useSelector(selectedIsSlideLoading);
-  const myContact = useSelector(selectedContact);
+ 
   const error = useSelector(selectError);
    const isOpenModal = useSelector(selectOpenModal);
  const handleModalClose = () => {
@@ -52,14 +53,14 @@ export const Contacts = () => {
       const wrd = evt.target.value;
       let hasExceeded = false;
       let nameRay;
-      if (wrd.length > 15) {
+      if (wrd.length > 30) {
         nameRay = [...wrd];
         nameRay.pop();
         evt.target.value = nameRay.join('');
         hasExceeded = true;
       }
       if (hasExceeded === true) {
-        Notiflix.Notify.warning('Maximum Charater limit is 15');
+        Notiflix.Notify.warning('Maximum Charater limit is 30');
       }
     /*const id = evt.currentTarget.getAttribute('data-id');
     setIdValue(id);*/
@@ -67,7 +68,6 @@ export const Contacts = () => {
 
   const handleNameEdit = evt => { 
     setNameEdit(true);
-    setNameValue("");
     //const input = document.getElementById('nameInput');
     evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
     setTimeout(() => {
@@ -78,14 +78,7 @@ export const Contacts = () => {
   }
 
   const handleNameSave = evt => {
-     const isNameDuplicate = contacts.some(
-       contact =>
-         contact.name.trim().toLowerCase() === nameValue.trim().toLowerCase()
-     );
-     if (isNameDuplicate) {
-       Notiflix.Notify.warning('This name already exists');
-       return;
-     }
+    
      if (nameValue.trim() !== '') {
        const idValue = evt.target.name;
        dispatch(updateContactName({ name: nameValue, myUpdateId: idValue }));
@@ -107,11 +100,23 @@ export const Contacts = () => {
       setEmailValue(evt.target.value);
       /*const id = evt.currentTarget.getAttribute('data-id');
     setIdValue(id);*/
+      const wrd = evt.target.value;
+      let hasExceeded = false;
+      let nameRay;
+      if (wrd.length > 200) {
+        nameRay = [...wrd];
+        nameRay.pop();
+        evt.target.value = nameRay.join('');
+        hasExceeded = true;
+      }
+      if (hasExceeded === true) {
+        Notiflix.Notify.warning('Maximum Charater limit is 200');
+      }
     };
 
     const handleEmailEdit = evt => {
       setEmailEdit(true);
-       setEmailValue("");
+       
       evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
       setTimeout(() => {
         evt.target.style.boxShadow = 'none';
@@ -136,6 +141,7 @@ export const Contacts = () => {
 
   const handleEmailEditClose = () => {
     setEmailEdit(false);
+    setEmailValue(myContact.email);
   }
 
   const handlePhoneChange = evt => {
@@ -187,6 +193,14 @@ export const Contacts = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  useEffect(() => {
+    setEmailValue(myContact.email);
+  }, [myContact.email]);
+
+   useEffect(() => {
+     setNameValue(myContact.name);
+   }, [myContact.name]);
+
   //console.log(myVal);
 
   return (
@@ -211,7 +225,7 @@ export const Contacts = () => {
                 visible={true}
                 height="80"
                 width="80"
-                color="rgb(235, 144, 25)"
+                color="#5785FF"
                 radius="9"
                 ariaLabel="three-dots-loading"
                 wrapperStyle={{}}
@@ -227,7 +241,7 @@ export const Contacts = () => {
           <div className={css.detailsImageWrapper}>
             <img
               className={css.detailsImage}
-              src={`https://yello-backend-s03r.onrender.com${myContact.avatarURL}`}
+              src={`http://localhost:8000${myContact.avatarURL}`}
               alt="Contact"
             />
           </div>
@@ -241,13 +255,13 @@ export const Contacts = () => {
             data-id={myContact._id}
           />
           <label className={css.detailsImageInput} htmlFor="2">
-            Update Picture +
+            Update Task Image +
           </label>
           <ul className={css.detailsWrapper}>
             <li className={css.detailsItem}>
               <span className={css.detailsCover}>
                 <span className={css.detailsInfo}>
-                  <span className={css.details}>Name:-</span>{' '}
+                  <span className={css.details}>Task Title:</span>{' '}
                   {isNameEditing === false ? (
                     <span className={css.detailsVal}>
                       <i className={css.detail}>{myContact.name}</i>
@@ -260,6 +274,7 @@ export const Contacts = () => {
                       onChange={handleNameChange}
                       data-id={myContact._id}
                       name="username"
+                      defaultValue={myContact.name}
                     />
                   )}
                 </span>
@@ -296,20 +311,23 @@ export const Contacts = () => {
             <li className={css.detailsItem}>
               <span className={css.detailsCover}>
                 <span className={css.detailsInfo}>
-                  <span className={css.details}>Email:-</span>{' '}
+                  <span className={css.details}>Task Details:</span>{' '}
                   {isEmailEditing === false ? (
-                    <span className={css.detailsVal}>
+                    <pre className={css.detailsDetailsVal}>
                       <i className={css.detail}>{myContact.email}</i>
-                    </span>
+                      {console.log(myContact.email)}
+                    </pre>
                   ) : (
-                    <input
+                    <textarea
                       type="text"
-                      className={css.detailsValInput}
+                      className={css.detailsDetailsValInput}
                       required
                       onChange={handleEmailChange}
                       data-id={myContact._id}
                       name="email"
-                    />
+                      title="Enter the details of your task"
+                      defaultValue={myContact.email}
+                    ></textarea>
                   )}
                 </span>
                 <span className={css.buttonWrapper}>
@@ -345,7 +363,7 @@ export const Contacts = () => {
             <li className={css.detailsItem}>
               <span className={css.detailsCover}>
                 <span className={css.detailsInfo}>
-                  <span className={css.details}>Phone Number:-</span>{' '}
+                  <span className={css.details}>Due Date:</span>{' '}
                   {isPhoneEditing === false ? (
                     <span className={css.detailsValPhone}>
                       <i className={css.detail}>{myContact.phone}</i>

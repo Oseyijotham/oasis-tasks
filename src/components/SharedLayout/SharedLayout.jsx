@@ -15,7 +15,7 @@ import { Suspense } from 'react';
 import { logOut } from '../../redux/AuthRedux/operations';
 import { useDispatch } from 'react-redux';
 import { useAuthHook } from '../../customHook/customHook';
-import svg from '../SharedLayout/icons.svg';
+import svg from './icons.svg';
 
 
 export const SharedLayout = () => {
@@ -43,7 +43,7 @@ export const SharedLayout = () => {
         </div>
         <nav>
           <Link to="/sharedLayout/Home">Home</Link>
-          <Link to="/sharedLayout/contacts">Contacts</Link>
+          <Link to="/sharedLayout/tasks">Tasks</Link>
           <Button type="button" onClick={() => dispatch(logOut())}>
             Logout
           </Button>

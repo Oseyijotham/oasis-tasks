@@ -1,12 +1,12 @@
 .footer{
     text-align: center;
-    background-color: rgb(235, 144, 25);
+    background: linear-gradient(270deg, rgba(254, 55, 55, 0.25) -32.31%, rgba(87, 133, 255, 0.25) 63.97%, rgba(102, 126, 237, 0.25) 191.94%);
     width:100%;
     font-family: 'DM Sans';
     font-weight: 700;
     padding: 3px;
-    color: rgb(114, 17, 17);
-    border-top: 1px solid #721111;
+    color: #fff;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);;
     /*border-top: 1px solid #fff;*/
 }
 

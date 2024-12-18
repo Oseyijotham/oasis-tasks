@@ -98,20 +98,15 @@
 }
 
 .selected{
-  transform: translateX(-20%);
+  transform: translateX(-25%);
 }
 
 .contactsDetailsHide{
   text-align: center;
-  background-image: radial-gradient(
-    circle at center,
-    #f1dbba 10%,
-    rgb(235, 144, 25) 50%
-  );
-  background-image: linear-gradient(#f1dbba, rgb(235, 144, 25));
+ background: linear-gradient(90deg, rgba(254, 55, 55, 0.25) -32.31%, rgba(87, 133, 255, 0.25) 63.97%, rgba(102, 126, 237, 0.25) 191.94%);
 position: absolute;
-    bottom: 5%;
-    width: 432px;
+    bottom: 0%;
+    width: 550px;
     border-radius: 30px;
     padding: 10px;
     transform: translateX(0%);
@@ -123,7 +118,7 @@ position: absolute;
 }
 
 .contactsDetailsShow{
-    transform: translateX(150%);
+    transform: translateX(115%);
     opacity: 1;
     visibility: visible;
 }
@@ -135,12 +130,12 @@ position: absolute;
   border-radius: 50%;
   cursor: pointer;
   padding: 8px;
-  background-color: rgb(235, 144, 25);
+  background-color:#01092D;
   fill: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #f1dbba;
+  border: 2px solid #fff;
 }
 
 .contactsDetailsArea{
@@ -201,11 +196,11 @@ position: absolute;
   padding: 5px;
   margin: 5px;
   border-radius: 30px;
-  color: rgb(114, 17, 17);
+  color: #fff;
   font-family: 'DM Sans';
   font-weight: 700;
-  background-color: rgb(240, 164, 65);
-  border: 1px solid hsla(0, 0%, 6%, .3);
+  background-color: #01092D;
+  border: 1px solid #fff;
   cursor: pointer;
   display: inline-block;
 }
@@ -240,11 +235,11 @@ position: absolute;
 
 .detailsItem{
 padding: 10px;
-background-color:#f1dbba;
-color: rgb(114, 17, 17);
+color: #fff;
 border-radius: 30px;
 box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
 border: 1px solid #fff;
+background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }
 
 .detailsCover{
@@ -252,11 +247,10 @@ border: 1px solid #fff;
   align-items: center;
   justify-content: space-between;
   gap:10px;
- background-color: rgb(240, 164, 65);
  border-radius: 30px;
  padding: 10px;
  border: 1px solid #fff;
- 
+ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }
 
 .detailsInfo{
@@ -271,47 +265,83 @@ border: 1px solid #fff;
 }
 
 .detailsVal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   border-radius: 30px;
-  background-color:#f1dbba;
   border: 1px solid #fff;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
-  max-width: 230px;
+  max-width: 305px;
+  height: 35px;
   overflow: hidden;
+  box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+}
+
+.detailsDetailsVal{
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  width: 305px;
+  height: 100px;
+  box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+  white-space: normal; /* Allows the text to wrap */
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: left;
+  white-space: pre-wrap;
 }
 
 .detailsValPhone{
   padding: 5px;
   border-radius: 30px;
-  background-color:#f1dbba;
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   border: 1px solid #fff;
-  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
   max-width: 140px;
   overflow: hidden;
 }
 
 .detailsValInput{
-  padding: 5px;
+  padding: 10px;
   border-radius: 30px;
-  background-color:#f1dbba;
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+  border: 1px solid #fff;
+  box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: 'DM Sans';
+  font-weight: 700;
+  width: 290px;
+  height: 35px;
+  resize: none;
+}
+
+.detailsDetailsValInput{
+  padding: 10px;
+  border-radius: 30px;
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   border: 1px solid #fff;
   box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
   font-size: 16px;
-  height: 33px;
-  color: rgb(114, 17, 17);
+  height: 100px;
+  color: #fff;
   font-family: 'DM Sans';
   font-weight: 700;
+  width: 290px;
+  overflow: hidden; 
+  resize: none;
 }
 
 .detailsValInputPhone{
   padding: 5px;
   border-radius: 30px;
-  background-color:#f1dbba;
+   background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   border: 1px solid #fff;
   box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
   font-size: 16px;
   height: 33px;
-  color: rgb(114, 17, 17);
+  color: #fff;
   font-family: 'DM Sans';
   font-weight: 700;
   max-width: 140px;
@@ -347,14 +377,14 @@ border: 1px solid #fff;
     font-weight: 700;
     cursor: pointer;
     border: none;
-    color: rgb(114, 17, 17);
-    background-color: #f1dbba;
+    color: #fff;
+    background: #01092D;
     border: 1px solid #fff;
 }
 
 .detailButton:hover{
 color: #fff;
-background-color: rgb(240, 164, 65);
+background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }
 
 .buttonWrapper{
@@ -368,10 +398,14 @@ background-color: rgb(240, 164, 65);
   border-radius: 50%;
   cursor: pointer;
   padding: 4px;
-  background-color: rgb(235, 144, 25);
+  background: #01092D;
   fill: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #f1dbba;
+  border: 2px solid #fff;
+}
+
+.detailsEditClose:hover{
+background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }

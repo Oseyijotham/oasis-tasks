@@ -57,9 +57,6 @@ export const ContactList = ({ children }) => {
   const [lowerLimit, setLowerLimit] = useState(0);
   const [upperLimit, setUpperLimit] = useState(4);
 
-  const handleFilterFoward = () => {
-    
-  }
 
   const handleForward = (evt) => {
     evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
@@ -106,7 +103,7 @@ export const ContactList = ({ children }) => {
 
   return (
     <div className={css.contactsSection}>
-      <h3 className={css.contactsTitle}>Contacts</h3>
+      <h3 className={css.contactsTitle}>Task List</h3>
       {children}
       {filterValue === '' && contacts.length !== 0 && (
         <ul className={css.contactsList}>
@@ -121,30 +118,12 @@ export const ContactList = ({ children }) => {
                   onClick={handleModalOpen}
                 >
                   <span className={css.contactsData} data-id={contact._id}>
-                    {contact.name}:{' '}
+                    <input type="checkbox" className={css.checkbox} />:{' '}
                     <span className={css.contactsPhone} data-id={contact._id}>
-                      {contact.phone}
+                      {contact.name}
                     </span>
                   </span>
                   <span className={css.contactsButtonArea}>
-                    <button
-                      className={css.contactsButton}
-                      name={contact._id}
-                      onClick={(evt) => {
-                        navigator.clipboard.writeText(contact.phone);
-                        Notiflix.Notify.success(
-                          "Copied"
-                        );
-                        evt.target.style.boxShadow =
-                          'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
-                        setTimeout(() => {
-                          evt.target.style.boxShadow = 'none';
-                        }, 1000);
-                      }
-                      }
-                    >
-                      Copy
-                    </button>
                     <button
                       type="submit"
                       className={css.contactsButton}

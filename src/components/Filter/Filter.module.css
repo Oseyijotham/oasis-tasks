@@ -1,9 +1,9 @@
 .formLabel {
    display: inline-block;
     font-weight: 700;
-    margin-bottom: 3px;
+    font-family: 'Work Sans', sans-serif;
     color: #fff;
-    background-color: rgb(235, 144, 25);
+    background-color: #01092D;
     border: 2px solid #fff;
     border-radius: 30px;
     padding: 8px;
@@ -12,15 +12,15 @@
 
 .formInput {
     display: block;
-    background-color: #f1dbba;
-    color: rgb(114, 17, 17);
+    color: #fff;
     padding: 10px;
     border-radius: 30px;
-    font-family: 'DM Sans';
+    font-family: 'Work Sans', sans-serif;
     font-weight: 700;
     margin-top: 3px;
     border: 1px solid #fff;
-    box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }
 
 
@@ -30,46 +30,37 @@
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
-  list-style: circle;
-      background-color: #f1dbba;
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+  box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
     border: 2px solid #fff;
     border-radius: 4px;
     padding: 10px;
 }
 
 .contactsData{
-  background-color: #f1dbba;
   border: 1px solid #fff;
-    border-radius: 4px;
-    padding: 3px;
-    font-weight: 700;
-    color: rgb(114, 17, 17);
-}
-
-.contactsData{
-    background-color: #f1dbba;
-    border: 1px solid #fff;
     border-radius: 30px;
     padding: 8px;
     font-weight: 700;
-    color: rgb(114, 17, 17);
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2px;
-    box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    gap:2px;
+    box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 }
+
 
 .contactsItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(235, 144, 25);
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
     border: 1px solid #fff;
     border-radius: 4px;
     padding: 5px;
-    cursor: pointer;
-      transform: translateY(0); /* No elevation initially */
+  transform: translateY(0); /* No elevation initially */
   box-shadow: none; /* No shadow initially */
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
@@ -77,23 +68,19 @@
 .contactsItem:hover{
   cursor: pointer;
   transform: translateY(-5px); /* Slight elevation */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Shadow underneath */
-  background-color: rgb(240, 164, 65);
+  box-shadow: 3px 3px 20px rgb(114, 17, 17), 5px 5px 5px #000000;
 }
 
 .contactsPhone{
   color: #fff;
-  background-color: rgb(235, 144, 25);
+  background-color: #5785FF;
   border: 2px solid #fff;
   padding: 5px;
   border-radius: 30px;
-  width: 120px;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 
 .contactsButtonArea{
   display: flex;
@@ -106,16 +93,22 @@
     padding: 3px;
   border-radius: 10px;
   text-align: center;
-  font-family: 'DM Sans';
+  font-family: 'Work Sans', sans-serif;
   font-weight: 700;
   cursor: pointer;
     border: none;
-    color: rgb(114, 17, 17);
-    background-color: #f1dbba;
+    color: #fff;
+    background: #01092D;;
     border: 1px solid #fff;
 }
 
 .contactsButton:hover{
-color: #fff;
-background-color: rgb(240, 164, 65);
+background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  box-shadow: inset 0 0 5px 5px #5785FF;
 }

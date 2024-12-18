@@ -1,5 +1,5 @@
-.phoneBook {
-  background-image: linear-gradient(#f1dbba, rgb(235, 144, 25));
+.taskBook {
+  background: linear-gradient(270deg, rgba(254, 55, 55, 0.25) -32.31%, rgba(87, 133, 255, 0.25) 63.97%, rgba(102, 126, 237, 0.25) 191.94%);
   border-radius: 30px;
   border: none;
   padding: 20px;
@@ -12,11 +12,7 @@
   font-size: 16px;
   filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.3));
   margin: 10px;
-  width: 530px;
-}
-
-.phoneBookContainer{
-  
+  width: 600px;
 }
 
 .formTitle {
@@ -25,7 +21,7 @@
     font-weight: 700;
     font-size: 36px;
     color: #fff;
-    font-family: 'DM Sans';
+    font-family:  'Inter', sans-serif;
     text-shadow: 3px 3px 20px rgb(114, 17, 17), 5px 5px 5px #000000;
 
 }
@@ -48,17 +44,19 @@
   border: none;
   border-radius: 30px;
   text-align: center;
-  color: rgb(114, 17, 17);
-  font-family: 'DM Sans';
+  color: #fff;
+  font-family: 'Work Sans', sans-serif;
   font-weight: 700;
   cursor: pointer;
-  background-color: #f1dbba;
+  background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   filter: drop-shadow(0px 8px 8px rgba(0, 0, 0, 0.3));
+  background-size: 200% 200%; /* Make the gradient larger for movement */
+    transition: background-position 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.button:hover {
-background-color:rgb(235, 144, 25);
-color: #fff;
+.button:hover{
+  background: linear-gradient(270deg, #FE3737 -32.31%, #5785FF 63.97%, #667EED 191.94%);
+  background-position: 100% 0; /* Shifts the gradient position */
 }
 
 .button:disabled {
@@ -77,11 +75,11 @@ color: #fff;
   font-weight: 700;
   margin-bottom: 3px;
   color: #fff;
-  background-color:rgb(235, 144, 25);
+  background-color: #01092D;
     border: 2px solid #fff;
     border-radius: 30px;
     padding: 8px;
-
+ font-family: 'Work Sans', sans-serif;
 }
 
 /*
@@ -92,16 +90,16 @@ flex-direction: column;}
 
 .formInput {
   display: block;
-  border-radius: 4px;
-  background-color: #f1dbba;
-    color: rgb(114, 17, 17);
+    color: #fff;
   padding: 10px;
   border-radius: 30px;
-    font-family: 'DM Sans';
+        font-family: 'Work Sans', sans-serif;
     font-weight: 700;
     margin-top: 3px;
     border: 1px solid #fff;
-    box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
+    width:530px;
 }
 
 .formInput:disabled {

@@ -9,6 +9,8 @@ import {
 } from '../../redux/AppRedux/selectors';
 import { selectUser } from '../../redux/AuthRedux/selectors';
 import { updateAvatar } from '../../redux/AuthRedux/operations';
+import svg from '../SharedLayout/icons.svg';
+import icon from './list2.svg';
 
 
 export const Home = () => {
@@ -33,16 +35,32 @@ export const Home = () => {
   return (
     <div className={css.homeDisplay}>
       <div>
-        <div className={css.homeTitle}>Your Contacts, Anytime, Anywhere</div>
-        <div className={css.homeIntro}>
-          <i>
-            Welcome to Yello Connect! Securely store your contacts and access
-            them on any device. Our user-friendly platform makes it easy to keep
-            your connections organized and up-to-date.
-          </i>
+        <div className={css.homeDisplayIntro}>
+          <div className={css.homeIconWrapper}>
+            <img src={icon} alt="icon" className={css.homeIcon} />
+          </div>
+          <span>
+            <span className={css.homeDisplayTitle}>
+              Your Tasking{' '}
+              <span className={css.homeDisplayTitlePart}>
+                <i>Oasis</i>
+              </span>
+            </span>
+            <span className={css.homeDisplaySlogan}>
+              <i>
+                Welcome to Oasis Tasks, a personal tool designed to help you
+                plan and manage tasks effectively. Create, update, and track
+                your tasks effortlessly, keeping your goals clear and your
+                productivity on track.
+              </i>
+            </span>
+          </span>
+          <div className={css.homeIconWrapper}>
+            <img src={icon} alt="icon" className={css.homeIcon} />
+          </div>
         </div>
       </div>
-      <Link to="/sharedLayout/contacts" className={css.homeLink}>
+      <Link to="/sharedLayout/tasks" className={css.homeLink}>
         Start Planning
       </Link>
 
@@ -54,7 +72,7 @@ export const Home = () => {
         <div className={css.detailsImageWrapper}>
           <img
             className={css.detailsImage}
-            src={`https://yello-backend-s03r.onrender.com${myUser.avatarURL}`}
+            src={`http://localhost:8000${myUser.avatarURL}`}
             alt="User"
           />
         </div>

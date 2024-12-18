@@ -103,16 +103,17 @@ margin-bottom: 2px;
 
 
 .iconLabel{
-  font-family: 'Sacramento';
-  font-size: 40px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
   color: #fff;
-  text-shadow: 3px 3px 20px rgb(114, 17, 17), 5px 5px 5px #000000;
-  margin: 5px;
 }
 
-.iconLabel::first-letter {
-    font-size: 30px;
-  }
+.iconLabelWrapper{
+  display:flex;
+  align-items: flex-end;
+  gap: 5px;
+}
 
 
 
