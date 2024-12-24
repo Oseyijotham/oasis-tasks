@@ -216,4 +216,19 @@ export const deleteContact = createAsyncThunk(
   }
 );          
 
-                                          
+ export const updateStatus = createAsyncThunk(
+   'tasks/updateStatus',
+   async ({ status, myUpdateStatusId }, thunkAPI) => {
+     try {
+       await axios.patch(`/contacts/taskupdate/${myUpdateStatusId}`, {
+         status,
+       });
+
+       const res = await axios.get('/contacts');
+
+       return res.data;
+     } catch (e) {
+       return thunkAPI.rejectWithValue(e.message);
+     }
+   }
+ );                                               

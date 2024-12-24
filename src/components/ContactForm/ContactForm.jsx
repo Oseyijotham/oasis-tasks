@@ -44,7 +44,7 @@ export const ContactForm = ({ children }) => {
 
     const exactDate = new Date();
     if (date <= exactDate) {
-      Notiflix.Notify.failure('Invalid date, choose a date in the future');
+      Notiflix.Notify.failure('Invalid date, choose a date or time in the future');
     }
 
     else {
@@ -80,7 +80,7 @@ export const ContactForm = ({ children }) => {
             placeholder="Enter Task Title"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
+            title="Enter Task Title"
             required
             autoComplete="off"
             id={contactNameId}
@@ -121,7 +121,7 @@ export const ContactForm = ({ children }) => {
                 className={css.formInput}
                 required
                 id={contactNumberId}
-                name="date"
+                name="myDate"
               />
             )}
           />

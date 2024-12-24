@@ -152,7 +152,7 @@ export const Contacts = () => {
      evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
      setTimeout(() => {
        evt.target.style.boxShadow = 'none';
-       const input = document.querySelector('[name="phone"]');
+       const input = document.querySelector('[name="date"]');
        input.focus();
      }, 100);
    };
@@ -241,8 +241,10 @@ export const Contacts = () => {
       })}
     >
       <ContactForm>
-        {isLoading && !error && <b>Please wait...</b>}
-        {error && <b>There was an error</b>}
+        {isLoading && !error && (
+          <b className={css.notification}>Please wait...</b>
+        )}
+        {error && <b className={css.notification}>There was an error</b>}
         <div
           className={clsx(css.contactsDetailsHide, {
             [css.contactsDetailsShow]: isOpenModal,
@@ -402,23 +404,17 @@ export const Contacts = () => {
                     <Flatpickr
                       data-enable-time
                       value={date}
-                        onChange={(selectedDates) => {
-                          const nowDate = new Date();
-                          if (selectedDates[0] <= nowDate) {
-                            Notiflix.Notify.warning(
-                              'Choose a date in the future'
-                            )
-                          }
-
-                          else {
-                             Notiflix.Notify.success(
-                              'Due Date Selected'
-                            )
-                            
-                          }
-                           setDate(selectedDates[0]);
-                         
-                        }}
+                      onChange={selectedDates => {
+                        const nowDate = new Date();
+                        if (selectedDates[0] <= nowDate) {
+                          Notiflix.Notify.warning(
+                            'Choose a date in the future'
+                          );
+                        } else {
+                          Notiflix.Notify.success('Due Date Selected');
+                        }
+                        setDate(selectedDates[0]);
+                      }}
                       options={{
                         minuteIncrement: 1, // Set minute increments to 1
                       }}

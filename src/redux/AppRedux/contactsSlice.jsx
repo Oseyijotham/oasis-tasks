@@ -14,7 +14,8 @@ import {
   updateContactAvatar,
   updateContactName,
   updateContactEmail,
-  updateContactPhone
+  updateContactPhone,
+  updateStatus,
 } from './operations';
 
 const handlePending = state => {
@@ -96,7 +97,7 @@ const contactsSlice = createSlice({
 
       .addCase(closeModal.fulfilled, (state, action) => {
         state.contacts.openMyModal = action.payload;
-          //state.contacts.selectedContact = {};
+        //state.contacts.selectedContact = {};
       })
       /*.addCase(fetchContactById.fulfilled, (state, action) => {
         const myContact = myContacts.find(contact => {
@@ -154,7 +155,15 @@ const contactsSlice = createSlice({
         state.contacts.isLoading = false;
         //state.token = action.payload.token;
       })
-      .addCase(updateContactPhone.rejected, handleRejected);
+      .addCase(updateContactPhone.rejected, handleRejected)
+      .addCase(updateStatus.pending, handlePending)
+      .addCase(updateStatus.fulfilled, (state, action) => {
+        state.contacts.items = action.payload;
+        state.contacts.isLoading = false;
+        //state.token = action.payload.token;
+      })
+      .addCase(updateStatus.rejected, handleRejected);
+      ;
   },
 });
 

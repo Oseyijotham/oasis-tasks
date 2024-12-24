@@ -15,6 +15,7 @@ import {
   handleFilterFowardDown,
   handleFilterBackwardUp,
   handleFilterBackwardDown,
+  updateStatus,
 } from '../../redux/AppRedux/operations';
 import css from './ContactList.module.css';
 import PropTypes from 'prop-types';
@@ -24,6 +25,7 @@ export const ContactList = ({ children }) => {
   const contacts = useSelector(selectContacts);
   const filterUp = useSelector(selectFilterUp);
   const filterDown = useSelector(selectFilterDown);
+  const [taskStatus, setTaskStatus] = useState();
   //let myContacts  
   const dispatch = useDispatch();
   const handleDelete = evt => {
@@ -93,7 +95,11 @@ export const ContactList = ({ children }) => {
        dispatch(handleFilterBackwardUp(str1));
        dispatch(handleFilterBackwardDown(sto1));
      }
-   };
+  };
+  
+  const handleChange = (evt) => {
+    dispatch(updateStatus({ status: evt.target.checked, myUpdateStatusId:evt.target.name}));
+  }
   
    const bestMatches = contacts.filter(
      contact =>
@@ -118,7 +124,14 @@ export const ContactList = ({ children }) => {
                   onClick={handleModalOpen}
                 >
                   <span className={css.contactsData} data-id={contact._id}>
-                    <input type="checkbox" className={css.checkbox} />:{' '}
+                    <input
+                      type="checkbox"
+                      className={css.checkbox}
+                      checked={contact.status}
+                      name={contact._id} 
+                      onChange={handleChange}
+                    />
+                    :{' '}
                     <span className={css.contactsPhone} data-id={contact._id}>
                       {contact.name}
                     </span>
