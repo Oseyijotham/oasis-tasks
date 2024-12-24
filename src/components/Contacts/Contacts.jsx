@@ -25,19 +25,22 @@ import svg from './icons.svg';
 import { ThreeCircles } from 'react-loader-spinner';
 import { useState } from 'react';
 import Notiflix from 'notiflix';
+import Flatpickr from 'react-flatpickr';
+import 'flatpickr/dist/themes/material_blue.css';
 
 export const Contacts = () => {
+   const [date, setDate] = useState(new Date());
   const [isNameEditing, setNameEdit] = useState(false);
   const [nameValue, setNameValue] = useState("");
   const [isEmailEditing, setEmailEdit] = useState(false);
    const myContact = useSelector(selectedContact);
   const [emailValue, setEmailValue] = useState(myContact.email);
    const [isPhoneEditing, setPhoneEdit] = useState(false);
-   const [phoneValue, setPhoneValue] = useState('');
+   const [dateValue, setDateValue] = useState('');
   //const [idValue, setIdValue] = useState('');
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  const contacts = useSelector(selectContacts);
+  //const contacts = useSelector(selectContacts);
   const isSlideLoading = useSelector(selectedIsSlideLoading);
  
   const error = useSelector(selectError);
@@ -116,7 +119,6 @@ export const Contacts = () => {
 
     const handleEmailEdit = evt => {
       setEmailEdit(true);
-       
       evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
       setTimeout(() => {
         evt.target.style.boxShadow = 'none';
@@ -144,15 +146,9 @@ export const Contacts = () => {
     setEmailValue(myContact.email);
   }
 
-  const handlePhoneChange = evt => {
-    setPhoneValue(evt.target.value);
-    /*const id = evt.currentTarget.getAttribute('data-id');
-    setIdValue(id);*/
-  };
  
    const handlePhoneEdit = evt => {
      setPhoneEdit(true);
-     setPhoneValue('');
      evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
      setTimeout(() => {
        evt.target.style.boxShadow = 'none';
@@ -162,13 +158,20 @@ export const Contacts = () => {
    };
   
   const handlePhoneSave = evt => {
-    if (phoneValue.trim() !== '') {
-      const idValue = evt.target.name;
-      dispatch(updateContactPhone({ phone: phoneValue, myUpdateId: idValue }));
-      setPhoneEdit(false);
-    } else if (phoneValue.trim() === '') {
-      Notiflix.Notify.warning('Input is Empty or Incorrect');
+    /*if (phoneValue.trim() !== '') {*/
+    const idValue = evt.target.name;
+    const exactDate = new Date();
+    if (date <= exactDate) {
+      Notiflix.Notify.failure('Invalid date, choose a date in the future');
     }
+    else{
+      dispatch(updateContactPhone({ phone: date, myUpdateId: idValue }));
+    }
+      setPhoneEdit(false);
+    
+    /*} else if (phoneValue.trim() === '') {
+      Notiflix.Notify.warning('Input is Empty or Incorrect');
+    }*/
     evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
     setTimeout(() => {
       evt.target.style.boxShadow = 'none';
@@ -200,6 +203,33 @@ export const Contacts = () => {
    useEffect(() => {
      setNameValue(myContact.name);
    }, [myContact.name]);
+  
+     useEffect(() => {
+       //setPhoneValue(myContact.phone);
+       /*const date = new Date(myContact.phone);
+
+       const formattedDate = date.toLocaleDateString('en-GB', {
+         year: 'numeric',
+         month: '2-digit',
+         day: '2-digit',
+       });
+       setDateValue(formattedDate)*/
+
+       const userLocale = navigator.language; // e.g., "en-US" or "fr-FR"
+       const myDate = new Date(myContact.phone);
+
+      const formatter = new Intl.DateTimeFormat(userLocale, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit', // Optional: include seconds
+        hour12: true, // Optional: use 12-hour clock (set to false for 24-hour clock)
+      });
+       setDateValue(formatter.format(myDate));
+        
+     }, [myContact.phone]);
 
   //console.log(myVal);
 
@@ -366,16 +396,42 @@ export const Contacts = () => {
                   <span className={css.details}>Due Date:</span>{' '}
                   {isPhoneEditing === false ? (
                     <span className={css.detailsValPhone}>
-                      <i className={css.detail}>{myContact.phone}</i>
+                      <i className={css.detail}>{dateValue}</i>
                     </span>
                   ) : (
-                    <input
-                      type="number"
-                      className={css.detailsValInputPhone}
-                      required
-                      onChange={handlePhoneChange}
-                      data-id={myContact._id}
-                      name="phone"
+                    <Flatpickr
+                      data-enable-time
+                      value={date}
+                        onChange={(selectedDates) => {
+                          const nowDate = new Date();
+                          if (selectedDates[0] <= nowDate) {
+                            Notiflix.Notify.warning(
+                              'Choose a date in the future'
+                            )
+                          }
+
+                          else {
+                             Notiflix.Notify.success(
+                              'Due Date Selected'
+                            )
+                            
+                          }
+                           setDate(selectedDates[0]);
+                         
+                        }}
+                      options={{
+                        minuteIncrement: 1, // Set minute increments to 1
+                      }}
+                      render={({ defaultValue, ...props }, ref) => (
+                        <input
+                          {...props}
+                          ref={ref}
+                          className={css.detailsValInputPhone}
+                          required
+                          data-id={myContact._id}
+                          name="date"
+                        />
+                      )}
                     />
                   )}
                 </span>

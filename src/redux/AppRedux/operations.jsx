@@ -46,8 +46,8 @@ export const handleFilterBackwardDown = createAsyncThunk(
 export const updateContactAvatar = createAsyncThunk(
   'contacts/updateContactAvatar',
   async ({myFile, myId}, thunkAPI) => {
-    Notiflix.Loading.pulse('Updating Your Picture...', {
-      svgColor: 'rgb(235, 144, 25)',
+    Notiflix.Loading.pulse('Updating Task Image...', {
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {
@@ -66,8 +66,8 @@ export const updateContactAvatar = createAsyncThunk(
 export const updateContactName = createAsyncThunk(
   'contacts/updateContactName',
   async ({ name, myUpdateId}, thunkAPI) => {
-    Notiflix.Loading.pulse('Updating Your Name...', {
-      svgColor: 'rgb(235, 144, 25)',
+    Notiflix.Loading.pulse('Updating Task Title...', {
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {
@@ -97,8 +97,8 @@ export const updateContactName = createAsyncThunk(
 export const updateContactEmail = createAsyncThunk(
   'contacts/updateContactEmail',
   async ({ email, myUpdateId }, thunkAPI) => {
-    Notiflix.Loading.pulse('Updating Your Email...', {
-      svgColor: 'rgb(235, 144, 25)',
+    Notiflix.Loading.pulse('Updating Task Details...', {
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {
@@ -125,8 +125,8 @@ export const updateContactEmail = createAsyncThunk(
 export const updateContactPhone = createAsyncThunk(
   'contacts/updateContactPhone',
   async ({ phone, myUpdateId }, thunkAPI) => {
-    Notiflix.Loading.pulse('Updating Your Phone Number...', {
-      svgColor: 'rgb(235, 144, 25)',
+    Notiflix.Loading.pulse('Updating Due Date...', {
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {

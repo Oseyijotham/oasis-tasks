@@ -8,12 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Frame = styled.div`
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: none;
+ 
 `;
 
 export const Icon = styled.svg`

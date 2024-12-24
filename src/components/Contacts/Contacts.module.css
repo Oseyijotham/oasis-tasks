@@ -280,7 +280,7 @@ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
 
 .detailsDetailsVal{
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 10px;
   border: 1px solid #fff;
   width: 305px;
   height: 100px;
@@ -293,14 +293,27 @@ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   white-space: pre-wrap;
 }
 
+.detailsDetailsVal::-webkit-scrollbar {
+  width: 7px;
+  padding: 3px;
+}
+
+.detailsDetailsVal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.detailsDetailsVal::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
 .detailsValPhone{
   padding: 5px;
   border-radius: 30px;
   background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   border: 1px solid #fff;
   box-shadow: inset 0 0 15px 10px rgba(0, 0, 0, 0.5);
-  max-width: 140px;
-  overflow: hidden;
 }
 
 .detailsValInput{
@@ -314,12 +327,12 @@ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   font-weight: 700;
   width: 290px;
   height: 35px;
-  resize: none;
+  font-size: 16px;
 }
 
 .detailsDetailsValInput{
   padding: 10px;
-  border-radius: 30px;
+  border-radius: 10px;
   background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   border: 1px solid #fff;
   box-shadow: inset 0 0 10px 5px rgba(0, 0, 0, 0.3);
@@ -329,9 +342,27 @@ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   font-family: 'DM Sans';
   font-weight: 700;
   width: 290px;
-  overflow: hidden; 
+  overflow: auto; 
   resize: none;
 }
+
+.detailsDetailsValInput::-webkit-scrollbar {
+  width: 7px;
+}
+
+.detailsDetailsValInput::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.detailsDetailsValInput::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+
+
+
 
 .detailsValInputPhone{
   padding: 5px;
@@ -344,7 +375,6 @@ background: linear-gradient(270deg, #5785FF 34.42%, #030F3F 144.24%);
   color: #fff;
   font-family: 'DM Sans';
   font-weight: 700;
-  max-width: 140px;
 }
 
 

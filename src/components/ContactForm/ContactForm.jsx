@@ -6,13 +6,16 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import Notiflix from 'notiflix';
+import { useState } from 'react';
+import Flatpickr from 'react-flatpickr';
+import 'flatpickr/dist/themes/material_blue.css';
 
 export const ContactForm = ({ children }) => {
   const contactNameId = nanoid();
   const contactNumberId = nanoid();
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
-
+  const [date, setDate] = useState(new Date());
 
   const handleButtonPress = evt => {
     evt.target.style.boxShadow = 'inset 0 0 10px 5px rgba(0, 0, 0, 0.3)';
@@ -25,26 +28,30 @@ export const ContactForm = ({ children }) => {
     event.preventDefault();
     const currentName = event.target[0].value;
 
-    const isNameDuplicate = contacts.some(
+    /*const isNameDuplicate = contacts.some(
       contact =>
         contact.name.trim().toLowerCase() === currentName.trim().toLowerCase()
     );
     if (isNameDuplicate) {
       Notiflix.Notify.warning('This name already exists');
       return;
-    }
+    }*/
 
     if (currentName.trim() === "") {
  Notiflix.Notify.warning('Empty spaces are not allowed');
       return;
     }
 
-    dispatch(
-      addContact({ name: event.target[0].value, phone: event.target[1].value })
-    );
-   
+    const exactDate = new Date();
+    if (date <= exactDate) {
+      Notiflix.Notify.failure('Invalid date, choose a date in the future');
+    }
+
+    else {
+      dispatch(addContact({ name: event.target[0].value, phone: date }));
+    }
     //console.log({ name: event.target[0].value, phone: event.target[1].value });
-     event.target.reset();
+     //event.target.reset();
   };
 
   const handleChange = (evt) => {
@@ -83,14 +90,40 @@ export const ContactForm = ({ children }) => {
         </label>
         <label>
           <span className={css.formLabel}>Due date:</span>
-          <input
-            type="number"
-            placeholder="Select Date"
-            autoComplete="off"
-            name="number"
-            required
-            id={contactNumberId}
-            className={css.formInput}
+
+          <Flatpickr
+            data-enable-time
+            value={date}
+            onChange={(selectedDates) => {
+            const nowDate = new Date();
+            if (selectedDates[0] <= nowDate) {
+            Notiflix.Notify.warning(
+            'Choose a date in the future'
+              )
+            }
+          
+            else {
+            Notiflix.Notify.success(
+            'Due Date Selected'
+            )
+                                      
+            }
+            setDate(selectedDates[0]);
+                                   
+            }}            
+            options={{
+              minuteIncrement: 1, // Set minute increments to 1
+            }}
+            render={({ defaultValue, ...props }, ref) => (
+              <input
+                {...props}
+                ref={ref}
+                className={css.formInput}
+                required
+                id={contactNumberId}
+                name="date"
+              />
+            )}
           />
         </label>
         <div className={css.buttonArea}>

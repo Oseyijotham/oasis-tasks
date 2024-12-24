@@ -29,7 +29,7 @@ export const App = () => {
     <b>Refreshing user...</b>
   ) : (
     <Routes>
-      <Route path="/" element={<SharedFooter/>}>
+      <Route path="/" element={<SharedFooter />}>
         <Route
           index
           element={
@@ -52,6 +52,10 @@ export const App = () => {
           />
           <Route
             path="tasks"
+            element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
+          />
+          <Route
+            path="sorting"
             element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
           />
         </Route>

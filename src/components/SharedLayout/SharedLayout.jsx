@@ -38,12 +38,19 @@ export const SharedLayout = () => {
             </IconLabelWrapper>
           </Logo>
         </Symbol>
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
           <Greeting>Welcome,</Greeting> <Greeting>{user.firstname}</Greeting>
         </div>
         <nav>
           <Link to="/sharedLayout/Home">Home</Link>
           <Link to="/sharedLayout/tasks">Tasks</Link>
+          <Link to="/sharedLayout/sorting">Sorting</Link>
           <Button type="button" onClick={() => dispatch(logOut())}>
             Logout
           </Button>

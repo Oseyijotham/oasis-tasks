@@ -20,7 +20,7 @@ export const register = createAsyncThunk(
       'Please wait a bit, first requests can take up to 60 seconds because the backend is hosted with a free plan'
     );
     Notiflix.Loading.pulse('Registering Your Account...', {
-      svgColor: 'rgb(235, 144, 25)',
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {
@@ -49,7 +49,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async ({ email, password }, thunkAPI) => {
     Notiflix.Loading.pulse('Logging You In...', {
-      svgColor: 'rgb(235, 144, 25)',
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {
@@ -70,7 +70,7 @@ export const logIn = createAsyncThunk(
 
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     Notiflix.Loading.pulse('Logging You Out...', {
-      svgColor: 'rgb(235, 144, 25)',
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
   try {
@@ -132,7 +132,7 @@ export const updateAvatar = createAsyncThunk(
   'auth/updateAvatar',
   async (file, thunkAPI) => {
     Notiflix.Loading.pulse('Updating Your Picture...', {
-      svgColor: 'rgb(235, 144, 25)',
+      svgColor: '#5785FF',
       fontFamily: 'DM Sans',
     });
     try {

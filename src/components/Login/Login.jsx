@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/AuthRedux/operations';
 import css from './Login.module.css';
-import logoImage from './call.png';
 import Notiflix from 'notiflix';
 import { NavLink } from 'react-router-dom';
 import { useAuthHook } from '../../customHook/customHook';
+import svg from '../SharedLayout/icons.svg'
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -56,17 +56,27 @@ export const Login = () => {
     <>
       <div className={css.loginContainer}>
         <div className={css.login}>
-          <div className={css.symbol}>
-            <div className={css.logo}>
-              <div role="img" aria-label="computer icon" className={css.frame}>
-                <img src={logoImage} alt="Logo" width="50px" />
-              </div>
-              <div className={css.iconLabelWrapper}>
-                <span className={css.iconLabel}>Oasis</span>
-                <span className={css.iconLabel}>Tasks</span>
+          <NavLink
+            to="/"
+          >
+            <div className={css.symbol}>
+              <div className={css.logo}>
+                <div
+                  role="img"
+                  aria-label="computer icon"
+                  className={css.frame}
+                >
+                  <svg width="160px" height="47px">
+                    <use href={`${svg}#icon-oasis-logo`}></use>
+                  </svg>
+                </div>
+                <div className={css.iconLabelWrapper}>
+                  <span className={css.iconLabel}>Oasis</span>
+                  <span className={css.iconLabel}>Tasks</span>
+                </div>
               </div>
             </div>
-          </div>
+          </NavLink>
 
           <div>
             <div className={css.formContainer}>

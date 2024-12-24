@@ -1,14 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { register } from '../../redux/AuthRedux/operations';
 import css from './Register.module.css';
-import logoImage from './call.png';
+import { NavLink } from 'react-router-dom';
 import Notiflix from 'notiflix';
-//import { useAuthHook } from '../../customHook/customHook';
-//import { useEffect } from 'react';
+import svg from '../SharedLayout/icons.svg';
 
 export const Register = () => {
 const dispatch = useDispatch();
-//const { token, user } = useAuthHook();
+
 
   const handleChange = (evt) => {
    const wrd = evt.target.value;
@@ -68,15 +67,23 @@ const handleSubmit = e => {
 
     return (
       <div className={css.login}>
-        <div to="/" className={css.symbol}>
-          <div className={css.logo}>
-            <div role="img" aria-label="computer icon" className={css.frame}>
-              <img src={logoImage} alt="Logo" width="50px" />
+        <NavLink
+          to="/"
+        >
+          <div className={css.symbol}>
+            <div className={css.logo}>
+              <div role="img" aria-label="computer icon" className={css.frame}>
+                <svg width="160px" height="47px">
+                  <use href={`${svg}#icon-oasis-logo`}></use>
+                </svg>
+              </div>
+              <div className={css.iconLabelWrapper}>
+                <span className={css.iconLabel}>Oasis</span>
+                <span className={css.iconLabel}>Tasks</span>
+              </div>
             </div>
-            <span className={css.iconLabel}>Yello</span>
-            <span className={css.iconLabel}>Connect</span>
           </div>
-        </div>
+        </NavLink>
 
         <div>
           <div className={css.formContainer}>

@@ -96,7 +96,7 @@ const contactsSlice = createSlice({
 
       .addCase(closeModal.fulfilled, (state, action) => {
         state.contacts.openMyModal = action.payload;
-          state.contacts.selectedContact = {};
+          //state.contacts.selectedContact = {};
       })
       /*.addCase(fetchContactById.fulfilled, (state, action) => {
         const myContact = myContacts.find(contact => {
