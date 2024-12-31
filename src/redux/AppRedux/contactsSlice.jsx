@@ -6,15 +6,21 @@ import {
   deleteContact,
   openModal,
   closeModal,
+  openSortedAllModal,
+  closeSortedAllModal,
   fetchContactById,
+  fetchSortedAllContactById,
   handleFilterFowardUp,
   handleFilterFowardDown,
   handleFilterBackwardUp,
   handleFilterBackwardDown,
   updateContactAvatar,
   updateContactName,
+  updateSortedAllContactName,
   updateContactEmail,
+  updateSortedAllContactEmail,
   updateContactPhone,
+  updateSortedAllContactPhone,
   updateStatus,
 } from './operations';
 
@@ -47,7 +53,15 @@ const contactsSlice = createSlice({
       isKeyLoading: false,
       error: null,
       openMyModal: false,
+      openMyAllModal: false,
       selectedContact: {
+        name: null,
+        email: null,
+        phone: null,
+        avatarURL: null,
+        groups: null,
+      },
+      selectedSortedAllContact: {
         name: null,
         email: null,
         phone: null,
@@ -99,6 +113,14 @@ const contactsSlice = createSlice({
         state.contacts.openMyModal = action.payload;
         //state.contacts.selectedContact = {};
       })
+      .addCase(openSortedAllModal.fulfilled, (state, action) => {
+        state.contacts.openMyAllModal = action.payload;
+      })
+
+      .addCase(closeSortedAllModal.fulfilled, (state, action) => {
+        state.contacts.openMyAllModal = action.payload;
+        //state.contacts.selectedContact = {};
+      })
       /*.addCase(fetchContactById.fulfilled, (state, action) => {
         const myContact = myContacts.find(contact => {
           return contact._id === action.payload;
@@ -116,6 +138,25 @@ const contactsSlice = createSlice({
         state.contacts.isSlideLoading = false;
         state.contacts.isSlideError = action.payload;
       })
+
+      .addCase(fetchSortedAllContactById.pending, state => {
+        state.contacts.isSlideLoading = true;
+      })
+      .addCase(fetchSortedAllContactById.fulfilled, (state, action) => {
+        state.contacts.selectedSortedAllContact = action.payload;
+        state.contacts.isSlideLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedContact = action.payload;
+        }
+      })
+      .addCase(fetchSortedAllContactById.rejected, (state, action) => {
+        state.contacts.isSlideLoading = false;
+        state.contacts.isSlideError = action.payload;
+      })
+
       .addCase(handleFilterFowardUp.fulfilled, (state, action) => {
         state.contacts.filterUpLimit = action.payload;
       })
@@ -137,25 +178,91 @@ const contactsSlice = createSlice({
         state.contacts.selectedContact.name = action.payload.newObj.name;
         state.contacts.items = action.payload.newRay;
         state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateContactName.rejected, handleRejected)
+      .addCase(updateSortedAllContactName.pending, handlePending)
+      .addCase(updateSortedAllContactName.fulfilled, (state, action) => {
+        state.contacts.selectedSortedAllContact.name =
+          action.payload.newObj.name;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedAllContactName.rejected, handleRejected)
       .addCase(updateContactEmail.pending, handlePending)
       .addCase(updateContactEmail.fulfilled, (state, action) => {
         state.contacts.selectedContact.email = action.payload.newObj.email;
         state.contacts.items = action.payload.newRay;
         state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateContactEmail.rejected, handleRejected)
+
+      .addCase(updateSortedAllContactEmail.pending, handlePending)
+      .addCase(updateSortedAllContactEmail.fulfilled, (state, action) => {
+        state.contacts.selectedSortedAllContact.email =
+          action.payload.newObj.email;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedAllContactEmail.rejected, handleRejected)
+
       .addCase(updateContactPhone.pending, handlePending)
       .addCase(updateContactPhone.fulfilled, (state, action) => {
         state.contacts.selectedContact.phone = action.payload.newObj.phone;
         state.contacts.items = action.payload.newRay;
         state.contacts.isLoading = false;
+          if (
+            state.contacts.selectedContact._id ===
+            state.contacts.selectedSortedAllContact._id
+          ) {
+            state.contacts.selectedSortedAllContact = action.payload.newObj;
+          }
         //state.token = action.payload.token;
       })
       .addCase(updateContactPhone.rejected, handleRejected)
+      //updateSortedAllContactPhone
+      .addCase(updateSortedAllContactPhone.pending, handlePending)
+      .addCase(updateSortedAllContactPhone.fulfilled, (state, action) => {
+        state.contacts.selectedSortedAllContact.phone = action.payload.newObj.phone;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+         if (
+           state.contacts.selectedContact._id ===
+           state.contacts.selectedSortedAllContact._id
+         ) {
+           state.contacts.selectedContact = action.payload.newObj;
+         }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedAllContactPhone.rejected, handleRejected)
+
       .addCase(updateStatus.pending, handlePending)
       .addCase(updateStatus.fulfilled, (state, action) => {
         state.contacts.items = action.payload;
@@ -163,7 +270,6 @@ const contactsSlice = createSlice({
         //state.token = action.payload.token;
       })
       .addCase(updateStatus.rejected, handleRejected);
-      ;
   },
 });
 

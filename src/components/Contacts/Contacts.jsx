@@ -237,7 +237,7 @@ export const Contacts = () => {
     <div
       className={clsx(css.coverWrapper, {
         [css.selected]: isOpenModal,
-        'is-elevated': false,
+        
       })}
     >
       <ContactForm>
@@ -248,7 +248,7 @@ export const Contacts = () => {
         <div
           className={clsx(css.contactsDetailsHide, {
             [css.contactsDetailsShow]: isOpenModal,
-            'is-elevated': false,
+            
           })}
         >
           {isSlideLoading && (

@@ -58,14 +58,14 @@ export const ContactForm = ({ children }) => {
     const wrd = evt.target.value
     let hasExceeded = false;
     let nameRay;
-    if (wrd.length > 30) {
+    if (wrd.length > 45) {
       nameRay = [...wrd];
       nameRay.pop()
       evt.target.value = nameRay.join("");
       hasExceeded = true;
     }
     if ((hasExceeded === true)) {
-      Notiflix.Notify.warning('Maximum Charater limit is 30');
+      Notiflix.Notify.warning('Maximum Charater limit is 45');
     }
   }
 

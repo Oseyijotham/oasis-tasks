@@ -2,9 +2,11 @@ import { useEffect, lazy } from 'react';
 //import { useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { SharedLayout } from '../SharedLayout/SharedLayout';
+import { SharedSortingLayout } from '../SharedSortingLayout/SharedSortingLayout';
 import { PrivateRoute } from '../PrivateRoute/PrivateRoute';
 import { RestrictedRouteRegister } from '../RestrictedRouteRegister/RestrictedRouteRegister';
 import { RestrictedRouteLogin } from '../RestrictedRouteLogin/RestrictedRouteLogin';
+import { RestrictedRouteNav } from '../RestrictedRouteNav/RestrictedRouteNav';
 import { refreshUser, getUser } from '../../redux/AuthRedux/operations';
 import { useDispatch } from 'react-redux';
 import { useAuthHook } from '../../customHook/customHook'
@@ -14,6 +16,7 @@ const Login = lazy(() => import('../Login/Login'));
 const Contacts = lazy(() => import('../Contacts/Contacts'));
 const Home = lazy(() => import('../Home/Home'));
 const SharedFooter = lazy(() => import('../SharedFooter/SharedFooter'));
+const SortedAllTasks = lazy(() => import('../SortedAllTasks/SortedAllTasks'));
 
 
 export const App = () => {
@@ -23,7 +26,7 @@ export const App = () => {
 
     useEffect(() => {
       dispatch(refreshUser());
-      dispatch(getUser());
+      //dispatch(getUser());
     }, [dispatch]);
   return isRefreshing ? (
     <b>Refreshing user...</b>
@@ -54,10 +57,45 @@ export const App = () => {
             path="tasks"
             element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
           />
-          <Route
-            path="sorting"
-            element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
-          />
+          <Route path="sorting" element={<SharedSortingLayout />}>
+            <Route
+              index
+              element={
+                <RestrictedRouteNav
+                  redirectTo="all"
+                  component={<SharedSortingLayout />}
+                />
+              }
+            />
+
+            <Route
+              path="all"
+              element={
+                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+              }
+            />
+
+            <Route
+              path="pending"
+              element={
+                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+              }
+            />
+
+            <Route
+              path="completed"
+              element={
+                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+              }
+            />
+
+            <Route
+              path="past_due"
+              element={
+                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+              }
+            />
+          </Route>
         </Route>
       </Route>
     </Routes>
