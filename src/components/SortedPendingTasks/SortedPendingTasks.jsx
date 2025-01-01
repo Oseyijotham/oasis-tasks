@@ -1,11 +1,11 @@
-import { TasksAllList } from '../TasksAllList/TasksAllList';
+import { TasksPendingList } from '../TasksPendingList/TasksPendingList';
 import { Filter } from '../Filter/Filter';
 import { useEffect } from 'react';
 import {
   fetchContacts,
-  closeSortedAllModal,
+  closeSortedPendingModal,
   updateContactAvatar,
-  updateSortedAllContactName,
+  updateSortedPendingContactName,
   updateSortedAllContactEmail,
   updateSortedAllContactPhone,
 } from '../../redux/AppRedux/operations';
@@ -14,11 +14,11 @@ import clsx from 'clsx';
 import {
   selectError,
   selectIsLoading,
-  selectOpenSortedAllModal,
-  selectedSortedAllContact,
+  selectOpenSortedPendingModal,
+  selectedSortedPendingContact,
   selectedIsSlideLoading,
 } from '../../redux/AppRedux/selectors';
-import css from './SortedAllTasks.module.css';
+import css from './SortedPendingTasks.module.css';
 import svg from './icons.svg';
 import { ThreeCircles } from 'react-loader-spinner';
 import { useState } from 'react';
@@ -32,7 +32,7 @@ export const Contacts = () => {
   const [isNameEditing, setNameEdit] = useState(false);
   const [nameValue, setNameValue] = useState("");
   const [isEmailEditing, setEmailEdit] = useState(false);
-   const myContact = useSelector(selectedSortedAllContact);
+   const myContact = useSelector(selectedSortedPendingContact);
   const [emailValue, setEmailValue] = useState(myContact.email);
    const [isPhoneEditing, setPhoneEdit] = useState(false);
    const [dateValue, setDateValue] = useState('');
@@ -43,9 +43,9 @@ export const Contacts = () => {
   const isSlideLoading = useSelector(selectedIsSlideLoading);
  
   const error = useSelector(selectError);
-   const isOpenModal = useSelector(selectOpenSortedAllModal);
+   const isOpenModal = useSelector(selectOpenSortedPendingModal);
  const handleModalClose = () => {
-   dispatch(closeSortedAllModal());
+   dispatch(closeSortedPendingModal());
    setNameEdit(false);
    setEmailEdit(false);
   };
@@ -55,14 +55,14 @@ export const Contacts = () => {
       const wrd = evt.target.value;
       let hasExceeded = false;
       let nameRay;
-      if (wrd.length > 30) {
+      if (wrd.length > 45) {
         nameRay = [...wrd];
         nameRay.pop();
         evt.target.value = nameRay.join('');
         hasExceeded = true;
       }
       if (hasExceeded === true) {
-        Notiflix.Notify.warning('Maximum Charater limit is 30');
+        Notiflix.Notify.warning('Maximum Charater limit is 45');
       }
     /*const id = evt.currentTarget.getAttribute('data-id');
     setIdValue(id);*/
@@ -83,7 +83,7 @@ export const Contacts = () => {
     
      if (nameValue.trim() !== '') {
        const idValue = evt.target.name;
-       dispatch(updateSortedAllContactName({ name: nameValue, myUpdateId: idValue }));
+       dispatch(updateSortedPendingContactName({ name: nameValue, myUpdateId: idValue }));
        setNameEdit(false);
      } else if (nameValue.trim() === '') {
        Notiflix.Notify.warning('Input is required');
@@ -235,12 +235,17 @@ export const Contacts = () => {
   return (
     <div
       className={clsx(css.coverWrapper, {
-        
+        [css.contactsWrapperSpace]: isOpenModal,
       })}
     >
-      {isLoading && !error && (
-        <b className={css.notification}>Please wait...</b>
-      )}
+      <b
+        className={clsx(css.notification, {
+          [css.notificationShow]: isLoading && !error,
+        })}
+      >
+        Please wait...
+      </b>
+
       {error && <b className={css.notification}>There was an error</b>}
       <div
         className={clsx(css.contactsDetailsHide, {
@@ -460,7 +465,7 @@ export const Contacts = () => {
         })}
       >
         <div></div>
-        <TasksAllList />
+        <TasksPendingList />
       </div>
     </div>
   );

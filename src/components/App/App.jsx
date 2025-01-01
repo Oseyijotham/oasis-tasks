@@ -17,7 +17,7 @@ const Contacts = lazy(() => import('../Contacts/Contacts'));
 const Home = lazy(() => import('../Home/Home'));
 const SharedFooter = lazy(() => import('../SharedFooter/SharedFooter'));
 const SortedAllTasks = lazy(() => import('../SortedAllTasks/SortedAllTasks'));
-
+const SortedPendingTasks = lazy(() => import('../SortedPendingTasks/SortedPendingTasks'));
 
 export const App = () => {
   const { isRefreshing } = useAuthHook();
@@ -78,7 +78,7 @@ export const App = () => {
             <Route
               path="pending"
               element={
-                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+                <PrivateRoute redirectTo="/" component={<SortedPendingTasks />} />
               }
             />
 

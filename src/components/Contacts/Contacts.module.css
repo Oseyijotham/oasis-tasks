@@ -90,6 +90,19 @@
 }*/
 .notification{
   color: #fff;
+   visibility: hidden;
+  padding: 8px;
+}
+
+.notificationShow{
+  visibility: visible;
+}
+
+.sortedWrapper{
+  width: 600px;
+  border-radius: 30px;
+  transform: translateX(0%);
+  transition: transform 1250ms cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .coverWrapper{
@@ -97,12 +110,11 @@
   align-items: center;
   justify-content:center;
   position: relative;
-  transform: translateX(0%);
-  transition: transform 1250ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  
 }
 
 .selected{
-  transform: translateX(-25%);
+  transform: translateX(-50%);
 }
 
 .contactsDetailsHide{
@@ -122,7 +134,7 @@ position: absolute;
 }
 
 .contactsDetailsShow{
-    transform: translateX(115%);
+    transform: translateX(112%);
     opacity: 1;
     visibility: visible;
 }

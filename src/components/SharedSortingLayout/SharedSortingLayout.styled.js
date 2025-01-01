@@ -15,7 +15,6 @@ export const Header = styled.header`
   justify-content: space-between;
   gap: 12px;
   padding: 20px;
-  margin-bottom: 8px;
   margin-top: 8px;
   margin-left: auto;
   margin-right: auto;

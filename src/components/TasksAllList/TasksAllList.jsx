@@ -67,17 +67,17 @@ export const TasksAllList = ({ children }) => {
       evt.target.style.boxShadow = 'none';
     }, 500);
     //let fwdWar = lowerLimit + 4;
-    if (filterValue === "") {
+    
       setLowerLimit(lowerLimit + 4);
       setUpperLimit(upperLimit + 4);
-    }
-    if (filterValue !== "") {
+    
+    /*if (filterValue !== "") {
       console.log("OK")
       const str = filterUp;
       const sto = filterDown
       dispatch(handleFilterFowardUp(str));
       dispatch(handleFilterFowardDown(sto));
-    }
+    }*/
   }
 
   const handleBackward = (evt) => {
@@ -86,16 +86,16 @@ export const TasksAllList = ({ children }) => {
        evt.target.style.boxShadow = 'none';
      }, 500);
     //let fwdWar = lowerLimit + 4;
-    if (filterValue === "") {
+    
       setLowerLimit(lowerLimit - 4);
       setUpperLimit(upperLimit - 4);
-    }
-    if (filterValue !== '') {
+    
+    /*if (filterValue !== '') {
       const str1 = filterUp;
       const sto1 = filterDown;
        dispatch(handleFilterBackwardUp(str1));
        dispatch(handleFilterBackwardDown(sto1));
-     }
+     }*/
   };
   
   const handleChange = (evt) => {
@@ -117,9 +117,12 @@ export const TasksAllList = ({ children }) => {
           {isLoading && !error && (
             <b className={css.notification}>Loading Tasks...</b>
           )}
+          {!isLoading && !error && (
+            <b className={css.notification}>No Tasks Here!!!</b>
+          )}
         </div>
       )}
-      {filterValue === '' && contacts.length !== 0 && (
+      {contacts.length !== 0 && (
         <ul className={css.contactsList}>
           {contacts.map(contact => {
             const myindex = contacts.indexOf(contact);
@@ -160,7 +163,7 @@ export const TasksAllList = ({ children }) => {
           })}
         </ul>
       )}
-      {filterValue === '' && (
+     
         <div className={css.navigationArea}>
           {lowerLimit !== 0 && (
             <button className={css.navigationButton} onClick={handleBackward}>
@@ -174,7 +177,7 @@ export const TasksAllList = ({ children }) => {
               </button>
             )}
         </div>
-      )}
+      
       {filterValue !== '' && (
         <div className={css.navigationArea}>
           {filterDown !== 0 && (

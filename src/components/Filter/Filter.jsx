@@ -74,13 +74,14 @@ export const Filter = () => {
           id={searchTermId}
           autoComplete="off"
           className={css.formInput}
+          value={filterValue}
         />
       </label>
 
       {filterValue !== '' && bestMatches.length !== 0 && (
         <ul className={css.contactsList}>
           {bestMatches.map(contact => {
-             const myindex = bestMatches.indexOf(contact);
+            const myindex = bestMatches.indexOf(contact);
             if (myindex >= filterLower && myindex < filterUpper) {
               return (
                 <li

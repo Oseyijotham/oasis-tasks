@@ -11,16 +11,16 @@ import {
 } from '../../redux/AppRedux/selectors';
 import {
   deleteContact,
-  openSortedAllModal,
-  fetchSortedAllContactById,
+  openSortedPendingModal,
+  fetchSortedPendingContactById,
   handleFilterFowardUp,
   handleFilterFowardDown,
   handleFilterBackwardUp,
   handleFilterBackwardDown,
   updateStatus,
 } from '../../redux/AppRedux/operations';
-import css from './TasksAllList.module.css';
-export const TasksAllList = ({ children }) => {
+import css from './TasksPendingList.module.css';
+export const TasksPendingList = ({ children }) => {
   const contacts = useSelector(selectContacts);
   const filterUp = useSelector(selectFilterUp);
   const filterDown = useSelector(selectFilterDown);
@@ -53,8 +53,8 @@ export const TasksAllList = ({ children }) => {
 
       const id = evt.currentTarget.getAttribute('data-id');
       //console.log(id);
-      dispatch(fetchSortedAllContactById(id));
-      dispatch(openSortedAllModal());
+      dispatch(fetchSortedPendingContactById(id));
+      dispatch(openSortedPendingModal());
     }
   };
   const [lowerLimit, setLowerLimit] = useState(0);
@@ -67,17 +67,17 @@ export const TasksAllList = ({ children }) => {
       evt.target.style.boxShadow = 'none';
     }, 500);
     //let fwdWar = lowerLimit + 4;
-    if (filterValue === "") {
+    
       setLowerLimit(lowerLimit + 4);
       setUpperLimit(upperLimit + 4);
-    }
-    if (filterValue !== "") {
+    
+    /*if (filterValue !== "") {
       console.log("OK")
       const str = filterUp;
       const sto = filterDown
       dispatch(handleFilterFowardUp(str));
       dispatch(handleFilterFowardDown(sto));
-    }
+    }*/
   }
 
   const handleBackward = (evt) => {
@@ -86,16 +86,16 @@ export const TasksAllList = ({ children }) => {
        evt.target.style.boxShadow = 'none';
      }, 500);
     //let fwdWar = lowerLimit + 4;
-    if (filterValue === "") {
+    
       setLowerLimit(lowerLimit - 4);
       setUpperLimit(upperLimit - 4);
-    }
-    if (filterValue !== '') {
+    
+    /*if (filterValue !== '') {
       const str1 = filterUp;
       const sto1 = filterDown;
        dispatch(handleFilterBackwardUp(str1));
        dispatch(handleFilterBackwardDown(sto1));
-     }
+     }*/
   };
   
   const handleChange = (evt) => {
@@ -106,24 +106,36 @@ export const TasksAllList = ({ children }) => {
      contact =>
        contact.name.toLowerCase().includes(filterValue.trim().toLowerCase()) &&
        filterValue.trim() !== ''
-   );
+  );
+  
+  const pendingMatches = contacts.filter(
+    contact =>
+      contact.status===false
+  );
 
   return (
     <div className={css.contactsSection}>
-      <h3 className={css.contactsTitle}>All Tasks</h3>
+      <h3 className={css.contactsTitle}>Pending Tasks</h3>
       {children}
-      {contacts.length === 0 && (
+      {pendingMatches.length === 0 && (
         <div className={css.contactsListAlt}>
           {isLoading && !error && (
             <b className={css.notification}>Loading Tasks...</b>
           )}
+          {!isLoading && !error && (
+            <b className={css.notification}>No Tasks Here!!!</b>
+          )}
         </div>
       )}
-      {filterValue === '' && contacts.length !== 0 && (
+      {pendingMatches.length !== 0 && (
         <ul className={css.contactsList}>
-          {contacts.map(contact => {
-            const myindex = contacts.indexOf(contact);
-            if (myindex >= lowerLimit && myindex < upperLimit) {
+          {pendingMatches.map(contact => {
+            const myindex = pendingMatches.indexOf(contact);
+            if (
+              myindex >= lowerLimit &&
+              myindex < upperLimit &&
+              contact.status === false
+            ) {
               return (
                 <li
                   key={contact._id}
@@ -160,21 +172,21 @@ export const TasksAllList = ({ children }) => {
           })}
         </ul>
       )}
-      {filterValue === '' && (
+      
         <div className={css.navigationArea}>
           {lowerLimit !== 0 && (
             <button className={css.navigationButton} onClick={handleBackward}>
               Prev
             </button>
           )}
-          {!(upperLimit > contacts.length) &&
-            upperLimit !== contacts.length && (
+          {!(upperLimit > pendingMatches.length) &&
+            upperLimit !== pendingMatches.length && (
               <button className={css.navigationButton} onClick={handleForward}>
                 Forward
               </button>
             )}
         </div>
-      )}
+      
       {filterValue !== '' && (
         <div className={css.navigationArea}>
           {filterDown !== 0 && (
@@ -182,12 +194,12 @@ export const TasksAllList = ({ children }) => {
               Prev
             </button>
           )}
-          {!(filterUp > bestMatches.length) &&
+          {/*!(filterUp > bestMatches.length) &&
             filterUp !== bestMatches.length && (
               <button className={css.navigationButton} onClick={handleForward}>
                 Forward
               </button>
-            )}
+            )*/}
         </div>
       )}
     </div>

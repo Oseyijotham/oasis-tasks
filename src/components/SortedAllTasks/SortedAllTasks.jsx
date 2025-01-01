@@ -55,14 +55,14 @@ export const Contacts = () => {
       const wrd = evt.target.value;
       let hasExceeded = false;
       let nameRay;
-      if (wrd.length > 30) {
+      if (wrd.length > 45) {
         nameRay = [...wrd];
         nameRay.pop();
         evt.target.value = nameRay.join('');
         hasExceeded = true;
       }
       if (hasExceeded === true) {
-        Notiflix.Notify.warning('Maximum Charater limit is 30');
+        Notiflix.Notify.warning('Maximum Charater limit is 45');
       }
     /*const id = evt.currentTarget.getAttribute('data-id');
     setIdValue(id);*/
@@ -235,12 +235,17 @@ export const Contacts = () => {
   return (
     <div
       className={clsx(css.coverWrapper, {
-        
+        [css.contactsWrapperSpace]: isOpenModal,
       })}
     >
-      {isLoading && !error && (
-        <b className={css.notification}>Please wait...</b>
-      )}
+      <b
+        className={clsx(css.notification, {
+          [css.notificationShow]: isLoading && !error,
+        })}
+      >
+        Please wait...
+      </b>
+      
       {error && <b className={css.notification}>There was an error</b>}
       <div
         className={clsx(css.contactsDetailsHide, {
