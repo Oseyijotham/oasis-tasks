@@ -237,6 +237,34 @@ export const updateSortedAllContactEmail = createAsyncThunk(
   }
 );
 
+export const updateSortedPendingContactEmail = createAsyncThunk(
+  'contacts/updateSortedPendingContactEmail',
+  async ({ email, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Details...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/emailupdate/${myUpdateId}`, {
+        email,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const updateContactPhone = createAsyncThunk(
   'contacts/updateContactPhone',
   async ({ phone, myUpdateId }, thunkAPI) => {
@@ -267,6 +295,34 @@ export const updateContactPhone = createAsyncThunk(
 
 export const updateSortedAllContactPhone = createAsyncThunk(
   'contacts/updateSortedAllContactPhone',
+  async ({ phone, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Due Date...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/phoneupdate/${myUpdateId}`, {
+        phone,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateSortedPendingContactPhone = createAsyncThunk(
+  'contacts/updateSortedPendingContactPhone',
   async ({ phone, myUpdateId }, thunkAPI) => {
     Notiflix.Loading.pulse('Updating Due Date...', {
       svgColor: '#5785FF',

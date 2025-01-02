@@ -6,8 +6,8 @@ import {
   closeSortedPendingModal,
   updateContactAvatar,
   updateSortedPendingContactName,
-  updateSortedAllContactEmail,
-  updateSortedAllContactPhone,
+  updateSortedPendingContactEmail,
+  updateSortedPendingContactPhone,
 } from '../../redux/AppRedux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
@@ -129,7 +129,7 @@ export const Contacts = () => {
    const handleEmailSave = evt => {
      if (emailValue.trim() !== '') {
        const idValue = evt.target.name;
-       dispatch(updateSortedAllContactEmail({ email: emailValue, myUpdateId: idValue }));
+       dispatch(updateSortedPendingContactEmail({ email: emailValue, myUpdateId: idValue }));
        setEmailEdit(false);
      } else if (emailValue.trim() === '') {
        Notiflix.Notify.warning('Input is required');
@@ -164,7 +164,7 @@ export const Contacts = () => {
       Notiflix.Notify.failure('Invalid date, choose a date in the future');
     }
     else{
-      dispatch(updateSortedAllContactPhone({ phone: date, myUpdateId: idValue }));
+      dispatch(updateSortedPendingContactPhone({ phone: date, myUpdateId: idValue }));
     }
       setPhoneEdit(false);
     
@@ -246,7 +246,7 @@ export const Contacts = () => {
         Please wait...
       </b>
 
-      {error && <b className={css.notification}>There was an error</b>}
+      {error && <b className={css.notificationShow}>There was an error, logout and login again!!!</b>}
       <div
         className={clsx(css.contactsDetailsHide, {
           [css.contactsDetailsShow]: isOpenModal,

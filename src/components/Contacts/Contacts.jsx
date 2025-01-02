@@ -250,7 +250,7 @@ export const Contacts = () => {
             Please wait...
           </b>
 
-          {error && <b className={css.notification}>There was an error</b>}
+          {error && <b className={css.notificationShow}>There was an error, logout and login again!!!</b>}
           <div
             className={clsx(css.contactsDetailsHide, {
               [css.contactsDetailsShow]: isOpenModal,

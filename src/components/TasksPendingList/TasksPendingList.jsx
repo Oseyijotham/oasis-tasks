@@ -125,6 +125,9 @@ export const TasksPendingList = ({ children }) => {
           {!isLoading && !error && (
             <b className={css.notification}>No Tasks Here!!!</b>
           )}
+          {!isLoading && error && (
+            <b className={css.notification}>Error!!!</b>
+          )}
         </div>
       )}
       {pendingMatches.length !== 0 && (
@@ -172,21 +175,21 @@ export const TasksPendingList = ({ children }) => {
           })}
         </ul>
       )}
-      
-        <div className={css.navigationArea}>
-          {lowerLimit !== 0 && (
-            <button className={css.navigationButton} onClick={handleBackward}>
-              Prev
+
+      <div className={css.navigationArea}>
+        {lowerLimit !== 0 && (
+          <button className={css.navigationButton} onClick={handleBackward}>
+            Prev
+          </button>
+        )}
+        {!(upperLimit > pendingMatches.length) &&
+          upperLimit !== pendingMatches.length && (
+            <button className={css.navigationButton} onClick={handleForward}>
+              Forward
             </button>
           )}
-          {!(upperLimit > pendingMatches.length) &&
-            upperLimit !== pendingMatches.length && (
-              <button className={css.navigationButton} onClick={handleForward}>
-                Forward
-              </button>
-            )}
-        </div>
-      
+      </div>
+
       {filterValue !== '' && (
         <div className={css.navigationArea}>
           {filterDown !== 0 && (

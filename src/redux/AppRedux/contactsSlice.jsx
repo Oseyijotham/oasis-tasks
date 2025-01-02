@@ -23,8 +23,10 @@ import {
   updateSortedPendingContactName,
   updateContactEmail,
   updateSortedAllContactEmail,
+  updateSortedPendingContactEmail,
   updateContactPhone,
   updateSortedAllContactPhone,
+  updateSortedPendingContactPhone,
   updateStatus,
 } from './operations';
 
@@ -228,6 +230,12 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateContactName.rejected, handleRejected)
@@ -284,6 +292,12 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateContactEmail.rejected, handleRejected)
@@ -300,10 +314,37 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedAllContactEmail.rejected, handleRejected)
-
+      // updateSortedPendingContactEmail
+      .addCase(updateSortedPendingContactEmail.pending, handlePending)
+      .addCase(updateSortedPendingContactEmail.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPendingContact.email =
+          action.payload.newObj.email;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedPendingContactEmail.rejected, handleRejected)
       .addCase(updateContactPhone.pending, handlePending)
       .addCase(updateContactPhone.fulfilled, (state, action) => {
         state.contacts.selectedContact.phone = action.payload.newObj.phone;
@@ -314,6 +355,12 @@ const contactsSlice = createSlice({
           state.contacts.selectedSortedAllContact._id
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
         }
         //state.token = action.payload.token;
       })
@@ -331,9 +378,37 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedAllContactPhone.rejected, handleRejected)
+      //updateSortedPendingContactPhone
+      .addCase(updateSortedPendingContactPhone.pending, handlePending)
+      .addCase(updateSortedPendingContactPhone.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPendingContact.phone =
+          action.payload.newObj.phone;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedPendingContactPhone.rejected, handleRejected)
 
       .addCase(updateStatus.pending, handlePending)
       .addCase(updateStatus.fulfilled, (state, action) => {

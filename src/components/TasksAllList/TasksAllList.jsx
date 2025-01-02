@@ -120,6 +120,9 @@ export const TasksAllList = ({ children }) => {
           {!isLoading && !error && (
             <b className={css.notification}>No Tasks Here!!!</b>
           )}
+          {!isLoading && error && (
+            <b className={css.notification}>Error!!!</b>
+          )}
         </div>
       )}
       {contacts.length !== 0 && (
@@ -163,21 +166,20 @@ export const TasksAllList = ({ children }) => {
           })}
         </ul>
       )}
-     
-        <div className={css.navigationArea}>
-          {lowerLimit !== 0 && (
-            <button className={css.navigationButton} onClick={handleBackward}>
-              Prev
-            </button>
-          )}
-          {!(upperLimit > contacts.length) &&
-            upperLimit !== contacts.length && (
-              <button className={css.navigationButton} onClick={handleForward}>
-                Forward
-              </button>
-            )}
-        </div>
-      
+
+      <div className={css.navigationArea}>
+        {lowerLimit !== 0 && (
+          <button className={css.navigationButton} onClick={handleBackward}>
+            Prev
+          </button>
+        )}
+        {!(upperLimit > contacts.length) && upperLimit !== contacts.length && (
+          <button className={css.navigationButton} onClick={handleForward}>
+            Forward
+          </button>
+        )}
+      </div>
+
       {filterValue !== '' && (
         <div className={css.navigationArea}>
           {filterDown !== 0 && (
