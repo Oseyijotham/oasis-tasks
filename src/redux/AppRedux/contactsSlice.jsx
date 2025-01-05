@@ -10,23 +10,39 @@ import {
   closeSortedAllModal,
   openSortedPendingModal,
   closeSortedPendingModal,
+  openSortedCompletedModal,
+  closeSortedCompletedModal,
+  openSortedPastDueModal,
+  closeSortedPastDueModal,
   fetchContactById,
   fetchSortedAllContactById,
   fetchSortedPendingContactById,
+  fetchSortedCompletedContactById,
+  fetchSortedPastDueContactById,
   handleFilterFowardUp,
   handleFilterFowardDown,
   handleFilterBackwardUp,
   handleFilterBackwardDown,
   updateContactAvatar,
+  updateSortedAllContactAvatar,
+  updateSortedPendingContactAvatar,
+  updateSortedCompletedContactAvatar,
+  updateSortedPastDueContactAvatar,
   updateContactName,
   updateSortedAllContactName,
   updateSortedPendingContactName,
+  updateSortedCompletedContactName,
+  updateSortedPastDueContactName,
   updateContactEmail,
   updateSortedAllContactEmail,
   updateSortedPendingContactEmail,
+  updateSortedCompletedContactEmail,
+  updateSortedPastDueContactEmail,
   updateContactPhone,
   updateSortedAllContactPhone,
   updateSortedPendingContactPhone,
+  updateSortedCompletedContactPhone,
+  updateSortedPastDueContactPhone,
   updateStatus,
 } from './operations';
 
@@ -61,6 +77,8 @@ const contactsSlice = createSlice({
       openMyModal: false,
       openMyAllModal: false,
       openMyPendingModal: false,
+      openMyCompletedModal: false,
+      openMyPastDueModal: false,
       selectedContact: {
         name: null,
         email: null,
@@ -76,6 +94,20 @@ const contactsSlice = createSlice({
         groups: null,
       },
       selectedSortedPendingContact: {
+        name: null,
+        email: null,
+        phone: null,
+        avatarURL: null,
+        groups: null,
+      },
+      selectedSortedCompletedContact: {
+        name: null,
+        email: null,
+        phone: null,
+        avatarURL: null,
+        groups: null,
+      },
+      selectedSortedPastDueContact: {
         name: null,
         email: null,
         phone: null,
@@ -143,6 +175,25 @@ const contactsSlice = createSlice({
         state.contacts.openMyPendingModal = action.payload;
         //state.contacts.selectedContact = {};
       })
+
+      .addCase(openSortedCompletedModal.fulfilled, (state, action) => {
+        state.contacts.openMyCompletedModal = action.payload;
+      })
+
+      .addCase(closeSortedCompletedModal.fulfilled, (state, action) => {
+        state.contacts.openMyCompletedModal = action.payload;
+        //state.contacts.selectedContact = {};
+      })
+
+      .addCase(openSortedPastDueModal.fulfilled, (state, action) => {
+        state.contacts.openMyPastDueModal = action.payload;
+      })
+
+      .addCase(closeSortedPastDueModal.fulfilled, (state, action) => {
+        state.contacts.openMyPastDueModal = action.payload;
+        //state.contacts.selectedContact = {};
+      })
+
       /*.addCase(fetchContactById.fulfilled, (state, action) => {
         const myContact = myContacts.find(contact => {
           return contact._id === action.payload;
@@ -167,14 +218,50 @@ const contactsSlice = createSlice({
       .addCase(fetchSortedAllContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedAllContact = action.payload;
         state.contacts.isSlideLoading = false;
-        if (
+        /*if (
           state.contacts.selectedContact._id ===
           state.contacts.selectedSortedAllContact._id
         ) {
           state.contacts.selectedContact = action.payload;
-        }
+        }*/
       })
       .addCase(fetchSortedAllContactById.rejected, (state, action) => {
+        state.contacts.isSlideLoading = false;
+        state.contacts.isSlideError = action.payload;
+      })
+
+      .addCase(fetchSortedCompletedContactById.pending, state => {
+        state.contacts.isSlideLoading = true;
+      })
+      .addCase(fetchSortedCompletedContactById.fulfilled, (state, action) => {
+        state.contacts.selectedSortedCompletedContact = action.payload;
+        state.contacts.isSlideLoading = false;
+        /*if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedContact = action.payload;
+        }*/
+      })
+      .addCase(fetchSortedCompletedContactById.rejected, (state, action) => {
+        state.contacts.isSlideLoading = false;
+        state.contacts.isSlideError = action.payload;
+      })
+
+      .addCase(fetchSortedPastDueContactById.pending, state => {
+        state.contacts.isSlideLoading = true;
+      })
+      .addCase(fetchSortedPastDueContactById.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPastDueContact = action.payload;
+        state.contacts.isSlideLoading = false;
+        /*if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedContact = action.payload;
+        }*/
+      })
+      .addCase(fetchSortedPastDueContactById.rejected, (state, action) => {
         state.contacts.isSlideLoading = false;
         state.contacts.isSlideError = action.payload;
       })
@@ -185,7 +272,7 @@ const contactsSlice = createSlice({
       .addCase(fetchSortedPendingContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedPendingContact = action.payload;
         state.contacts.isSlideLoading = false;
-        if (
+        /*if (
           state.contacts.selectedContact._id ===
           state.contacts.selectedSortedPendingContact._id
         ) {
@@ -196,7 +283,7 @@ const contactsSlice = createSlice({
           state.contacts.selectedSortedPendingContact._id
         ) {
           state.contacts.selectedSortedAllContact = action.payload;
-        }
+        }*/
       })
       .addCase(fetchSortedPendingContactById.rejected, (state, action) => {
         state.contacts.isSlideLoading = false;
@@ -217,8 +304,86 @@ const contactsSlice = createSlice({
       })
       .addCase(updateContactAvatar.fulfilled, (state, action) => {
         state.contacts.selectedContact.avatarURL = action.payload.avatarURL;
-        //state.token = action.payload.token;
+        
+         if (state.contacts.selectedContact._id === state.contacts.selectedSortedAllContact._id){
+          state.contacts.selectedSortedAllContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPendingContact._id === state.contacts.selectedContact._id){
+          state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedCompletedContact._id === state.contacts.selectedContact._id){
+          state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPastDueContact._id === state.contacts.selectedContact._id){
+          state.contacts.selectedSortedPastDueContact.avatarURL = action.payload.avatarURL;
+        }
       })
+      .addCase(updateSortedAllContactAvatar.fulfilled, (state, action) => {
+        state.contacts.selectedSortedAllContact.avatarURL = action.payload.avatarURL;
+        
+        if (state.contacts.selectedContact._id === state.contacts.selectedSortedAllContact._id){
+          state.contacts.selectedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPendingContact._id === state.contacts.selectedSortedAllContact._id){
+          state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedCompletedContact._id === state.contacts.selectedSortedAllContact._id){
+          state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPastDueContact._id === state.contacts.selectedSortedAllContact._id){
+          state.contacts.selectedSortedPastDueContact.avatarURL = action.payload.avatarURL;
+        }
+      })
+         .addCase(updateSortedPendingContactAvatar.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        
+        if (state.contacts.selectedContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedAllContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedCompletedContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPastDueContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedPastDueContact.avatarURL = action.payload.avatarURL;
+        }
+         })
+       .addCase(updateSortedCompletedContactAvatar.fulfilled, (state, action) => {
+        state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        
+        if (state.contacts.selectedContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedAllContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedCompletedContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedPastDueContact._id === state.contacts.selectedSortedPendingContact._id){
+          state.contacts.selectedSortedPastDueContact.avatarURL = action.payload.avatarURL;
+        }
+       })
+            .addCase(updateSortedPastDueContactAvatar.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPastDueContact.avatarURL = action.payload.avatarURL;
+        
+        if (state.contacts.selectedContact._id === state.contacts.selectedSortedPastDueContact._id){
+          state.contacts.selectedContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedAllContact._id === state.contacts.selectedSortedPastDueContact._id){
+          state.contacts.selectedSortedAllContact.avatarURL = action.payload.avatarURL;
+              }
+        if (state.contacts.selectedSortedPendingContact._id === state.contacts.selectedSortedPastDueContact._id){
+          state.contacts.selectedSortedPendingContact.avatarURL = action.payload.avatarURL;
+        }
+         if (state.contacts.selectedSortedCompletedContact._id === state.contacts.selectedSortedPastDueContact._id){
+          state.contacts.selectedSortedCompletedContact.avatarURL = action.payload.avatarURL;
+        }
+        
+      })
+
       .addCase(updateContactName.pending, handlePending)
       .addCase(updateContactName.fulfilled, (state, action) => {
         state.contacts.selectedContact.name = action.payload.newObj.name;
@@ -235,6 +400,18 @@ const contactsSlice = createSlice({
           state.contacts.selectedSortedPendingContact._id
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
         }
         //state.token = action.payload.token;
       })
@@ -257,6 +434,18 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedAllContactName.rejected, handleRejected)
@@ -278,10 +467,90 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedPendingContactName.rejected, handleRejected)
+      .addCase(updateSortedCompletedContactName.pending, handlePending)
+      .addCase(updateSortedCompletedContactName.fulfilled, (state, action) => {
+        state.contacts.selectedSortedCompletedContact.name =
+          action.payload.newObj.name;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedCompletedContactName.rejected, handleRejected)
       .addCase(updateContactEmail.pending, handlePending)
+
+      .addCase(updateSortedPastDueContactName.pending, handlePending)
+      .addCase(updateSortedPastDueContactName.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPastDueContact.name =
+          action.payload.newObj.name;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedPastDueContactName.rejected, handleRejected)
+
       .addCase(updateContactEmail.fulfilled, (state, action) => {
         state.contacts.selectedContact.email = action.payload.newObj.email;
         state.contacts.items = action.payload.newRay;
@@ -297,6 +566,18 @@ const contactsSlice = createSlice({
           state.contacts.selectedSortedPendingContact._id
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
         }
         //state.token = action.payload.token;
       })
@@ -320,6 +601,18 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedAllContactEmail.rejected, handleRejected)
@@ -342,9 +635,90 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedPendingContactEmail.rejected, handleRejected)
+
+      .addCase(updateSortedCompletedContactEmail.pending, handlePending)
+      .addCase(updateSortedCompletedContactEmail.fulfilled, (state, action) => {
+        state.contacts.selectedSortedCompletedContact.email =
+          action.payload.newObj.email;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedCompletedContactEmail.rejected, handleRejected)
+
+      .addCase(updateSortedPastDueContactEmail.pending, handlePending)
+      .addCase(updateSortedPastDueContactEmail.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPastDueContact.email =
+          action.payload.newObj.email;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedPastDueContactEmail.rejected, handleRejected)
+
       .addCase(updateContactPhone.pending, handlePending)
       .addCase(updateContactPhone.fulfilled, (state, action) => {
         state.contacts.selectedContact.phone = action.payload.newObj.phone;
@@ -361,6 +735,18 @@ const contactsSlice = createSlice({
           state.contacts.selectedSortedPendingContact._id
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
         }
         //state.token = action.payload.token;
       })
@@ -384,6 +770,18 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedPendingContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedAllContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedAllContactPhone.rejected, handleRejected)
@@ -406,9 +804,89 @@ const contactsSlice = createSlice({
         ) {
           state.contacts.selectedSortedAllContact = action.payload.newObj;
         }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedPendingContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
         //state.token = action.payload.token;
       })
       .addCase(updateSortedPendingContactPhone.rejected, handleRejected)
+
+      .addCase(updateSortedCompletedContactPhone.pending, handlePending)
+      .addCase(updateSortedCompletedContactPhone.fulfilled, (state, action) => {
+        state.contacts.selectedSortedCompletedContact.phone =
+          action.payload.newObj.phone;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPastDueContact._id ===
+          state.contacts.selectedSortedCompletedContact._id
+        ) {
+          state.contacts.selectedSortedPastDueContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedCompletedContactPhone.rejected, handleRejected)
+
+      .addCase(updateSortedPastDueContactPhone.pending, handlePending)
+      .addCase(updateSortedPastDueContactPhone.fulfilled, (state, action) => {
+        state.contacts.selectedSortedPastDueContact.phone =
+          action.payload.newObj.phone;
+        state.contacts.items = action.payload.newRay;
+        state.contacts.isLoading = false;
+        if (
+          state.contacts.selectedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedAllContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedAllContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedPendingContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedPendingContact = action.payload.newObj;
+        }
+        if (
+          state.contacts.selectedSortedCompletedContact._id ===
+          state.contacts.selectedSortedPastDueContact._id
+        ) {
+          state.contacts.selectedSortedCompletedContact = action.payload.newObj;
+        }
+        //state.token = action.payload.token;
+      })
+      .addCase(updateSortedPastDueContactPhone.rejected, handleRejected)
 
       .addCase(updateStatus.pending, handlePending)
       .addCase(updateStatus.fulfilled, (state, action) => {

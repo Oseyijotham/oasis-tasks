@@ -44,6 +44,36 @@ export const closeSortedPendingModal = createAsyncThunk(
   }
 );
 
+export const openSortedCompletedModal = createAsyncThunk(
+  'modal/openCompleted',
+  async (_, thunkAPI) => {
+    return true;
+  }
+);
+
+export const closeSortedCompletedModal = createAsyncThunk(
+  'modal/closeCompleted',
+  async (_, thunkAPI) => {
+    //console.log("Now");
+    return false;
+  }
+);
+
+export const openSortedPastDueModal = createAsyncThunk(
+  'modal/openPastDue',
+  async (_, thunkAPI) => {
+    return true;
+  }
+);
+
+export const closeSortedPastDueModal = createAsyncThunk(
+  'modal/closePastDue',
+  async (_, thunkAPI) => {
+    //console.log("Now");
+    return false;
+  }
+);
+
 export const handleFilterFowardUp = createAsyncThunk(
   'filter/fowardUp',
   async (val, thunkAPI) => {
@@ -86,7 +116,99 @@ export const updateContactAvatar = createAsyncThunk(
       Notiflix.Loading.remove();
       return res.data;
     } catch (error) {
-      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Notify.failure('Error, try again');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const updateSortedAllContactAvatar = createAsyncThunk(
+  'contacts/updateSortedAllContactAvatar',
+  async ({ myFile, myId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Image...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(
+        `/contacts/avatars/${myId}`,
+        { avatar: myFile },
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+
+      Notiflix.Loading.remove();
+      return res.data;
+    } catch (error) {
+      Notiflix.Notify.failure('Error, try again');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const updateSortedPendingContactAvatar = createAsyncThunk(
+  'contacts/updateSortedPendingContactAvatar',
+  async ({ myFile, myId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Image...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(
+        `/contacts/avatars/${myId}`,
+        { avatar: myFile },
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+
+      Notiflix.Loading.remove();
+      return res.data;
+    } catch (error) {
+      Notiflix.Notify.failure('Error, try again');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const updateSortedCompletedContactAvatar = createAsyncThunk(
+  'contacts/updateSortedCompletedContactAvatar',
+  async ({ myFile, myId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Image...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(
+        `/contacts/avatars/${myId}`,
+        { avatar: myFile },
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+
+      Notiflix.Loading.remove();
+      return res.data;
+    } catch (error) {
+      Notiflix.Notify.failure('Error, try again');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const updateSortedPastDueContactAvatar = createAsyncThunk(
+  'contacts/updateSortedPastdueContactAvatar',
+  async ({ myFile, myId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Image...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(
+        `/contacts/avatars/${myId}`,
+        { avatar: myFile },
+        { headers: { 'Content-Type': 'multipart/form-data' } }
+      );
+
+      Notiflix.Loading.remove();
+      return res.data;
+    } catch (error) {
+      Notiflix.Notify.failure('Error, try again');
       Notiflix.Loading.remove();
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -154,6 +276,62 @@ export const updateSortedAllContactName = createAsyncThunk(
 
 export const updateSortedPendingContactName = createAsyncThunk(
   'contacts/updateSortedPendingContactName',
+  async ({ name, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Title...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/nameupdate/${myUpdateId}`, {
+        name,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateSortedCompletedContactName = createAsyncThunk(
+  'contacts/updateSortedCompletedContactName',
+  async ({ name, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Title...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/nameupdate/${myUpdateId}`, {
+        name,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateSortedPastDueContactName = createAsyncThunk(
+  'contacts/updateSortedPastDueContactName',
   async ({ name, myUpdateId }, thunkAPI) => {
     Notiflix.Loading.pulse('Updating Task Title...', {
       svgColor: '#5785FF',
@@ -265,6 +443,62 @@ export const updateSortedPendingContactEmail = createAsyncThunk(
   }
 );
 
+export const updateSortedCompletedContactEmail = createAsyncThunk(
+  'contacts/updateSortedCompletedContactEmail',
+  async ({ email, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Details...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/emailupdate/${myUpdateId}`, {
+        email,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateSortedPastDueContactEmail = createAsyncThunk(
+  'contacts/updateSortedPastDueContactEmail',
+  async ({ email, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Task Details...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/emailupdate/${myUpdateId}`, {
+        email,
+      });
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const updateContactPhone = createAsyncThunk(
   'contacts/updateContactPhone',
   async ({ phone, myUpdateId }, thunkAPI) => {
@@ -349,8 +583,8 @@ export const updateSortedPendingContactPhone = createAsyncThunk(
   }
 );
 
-/*export const updateSortedAllContactPhone = createAsyncThunk(
-  'contacts/updateSortedAllContactPhone',
+export const updateSortedCompletedContactPhone = createAsyncThunk(
+  'contacts/updateSortedCompletedContactPhone',
   async ({ phone, myUpdateId }, thunkAPI) => {
     Notiflix.Loading.pulse('Updating Due Date...', {
       svgColor: '#5785FF',
@@ -375,7 +609,44 @@ export const updateSortedPendingContactPhone = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message);
     }
   }
-);*/
+);
+
+export const updateSortedPastDueContactPhone = createAsyncThunk(
+  'contacts/updateSortedPastDueContactPhone',
+  async ({ phone, myUpdateId }, thunkAPI) => {
+    Notiflix.Loading.pulse('Updating Due Date...', {
+      svgColor: '#5785FF',
+      fontFamily: 'DM Sans',
+    });
+    try {
+      const res = await axios.patch(`/contacts/phoneupdate/${myUpdateId}`, {
+        phone,
+      });
+    
+      const nowInstDate = new Date();
+      const myDate = new Date(phone);
+      if (myDate > nowInstDate) {
+        thunkAPI.dispatch(closeSortedPastDueModal());
+        Notiflix.Notify.success('Due Date moved foward')
+      }
+
+      const response = await axios.get('/contacts');
+
+      Notiflix.Loading.remove();
+      //return res.data;
+      return {
+        newObj: res.data,
+        newRay: response.data,
+      };
+    } catch (error) {
+      Notiflix.Notify.failure('Incorrect Input Format');
+      Notiflix.Loading.remove();
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+
 
 export const fetchContactById = createAsyncThunk(
   'contacts/fetchById',
@@ -405,6 +676,32 @@ export const fetchSortedAllContactById = createAsyncThunk(
 
 export const fetchSortedPendingContactById = createAsyncThunk(
   'contacts/fetchSortedPendingById',
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(`/contacts/${id}`);
+      //console.log (response.data);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const fetchSortedCompletedContactById = createAsyncThunk(
+  'contacts/fetchSortedCompletedById',
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(`/contacts/${id}`);
+      //console.log (response.data);
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const fetchSortedPastDueContactById = createAsyncThunk(
+  'contacts/fetchSortedPastDueById',
   async (id, thunkAPI) => {
     try {
       const response = await axios.get(`/contacts/${id}`);
@@ -455,13 +752,30 @@ export const deleteContact = createAsyncThunk(
       const res = await axios.get('/contacts');
       const state = thunkAPI.getState();
       const selectedContact = state.contacts.contacts.selectedContact;
+      const selectedSortedAllContact = state.contacts.contacts.selectedSortedAllContact;
+      const selectedSortedPendingContact = state.contacts.contacts.selectedSortedPendingContact;
+      const selectedSortedCompletedContact = state.contacts.contacts.selectedSortedCompletedContact;
+      const selectedSortedPastDueContact = state.contacts.contacts.selectedSortedPastDueContact;
       //const newContacts = res.data;
       //console.log(newContacts);
        //const exist = newContacts.find(contact => contact._id === taskId);
     
     if (selectedContact._id === taskId) {
       thunkAPI.dispatch(closeModal());
-    }
+      }
+     if (selectedSortedAllContact._id === taskId) {
+       thunkAPI.dispatch(closeSortedAllModal());
+      }  
+       if (selectedSortedPendingContact._id === taskId) {
+         thunkAPI.dispatch(closeSortedPendingModal());
+      }  
+       if (selectedSortedCompletedContact._id === taskId) {
+         thunkAPI.dispatch(closeSortedCompletedModal());
+      }  
+       if (selectedSortedPastDueContact._id === taskId) {
+         thunkAPI.dispatch(closeSortedPastDueModal());
+       }  
+      
       return res.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -480,9 +794,13 @@ export const deleteContact = createAsyncThunk(
        const res = await axios.get('/contacts');
        const state = thunkAPI.getState();
        const selectedSortedPendingContact = state.contacts.contacts.selectedSortedPendingContact;
-       
+       const selectedSortedCompletedContact = state.contacts.contacts.selectedSortedCompletedContact;
         if (selectedSortedPendingContact._id === myUpdateStatusId && status === true) {
           thunkAPI.dispatch(closeSortedPendingModal());
+       }
+       
+       if (selectedSortedCompletedContact._id === myUpdateStatusId && status === false) {
+          thunkAPI.dispatch(closeSortedCompletedModal());
         }
        return res.data;
      } catch (e) {

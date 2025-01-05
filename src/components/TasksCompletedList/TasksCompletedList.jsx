@@ -11,16 +11,16 @@ import {
 } from '../../redux/AppRedux/selectors';
 import {
   deleteContact,
-  openSortedPendingModal,
-  fetchSortedPendingContactById,
+  openSortedCompletedModal,
+  fetchSortedCompletedContactById,
   handleFilterFowardUp,
   handleFilterFowardDown,
   handleFilterBackwardUp,
   handleFilterBackwardDown,
   updateStatus,
 } from '../../redux/AppRedux/operations';
-import css from './TasksPendingList.module.css';
-export const TasksPendingList = ({ children }) => {
+import css from './TasksCompletedList.module.css';
+export const TasksCompletedList = ({ children }) => {
   const contacts = useSelector(selectContacts);
   const filterUp = useSelector(selectFilterUp);
   const filterDown = useSelector(selectFilterDown);
@@ -53,8 +53,8 @@ export const TasksPendingList = ({ children }) => {
 
       const id = evt.currentTarget.getAttribute('data-id');
       //console.log(id);
-      dispatch(fetchSortedPendingContactById(id));
-      dispatch(openSortedPendingModal());
+      dispatch(fetchSortedCompletedContactById(id));
+      dispatch(openSortedCompletedModal());
     }
   };
   const [lowerLimit, setLowerLimit] = useState(0);
@@ -108,16 +108,17 @@ export const TasksPendingList = ({ children }) => {
        filterValue.trim() !== ''
   );
   
-  const pendingMatches = contacts.filter(
+  const completedMatches = contacts.filter(
     contact =>
-      contact.status===false
+      contact.status === true
   );
 
   return (
     <div className={css.contactsSection}>
-      <h3 className={css.contactsTitle}>Pending Tasks</h3>
+      <h3 className={css.contactsTitle}>Completed Tasks</h3>
       {children}
-      {pendingMatches.length === 0 && (
+
+      {completedMatches.length === 0 && (
         <div className={css.contactsListAlt}>
           {isLoading && !error && (
             <b className={css.notification}>Loading Tasks...</b>
@@ -125,15 +126,14 @@ export const TasksPendingList = ({ children }) => {
           {!isLoading && !error && (
             <b className={css.notification}>No Tasks Here!!!</b>
           )}
-          {!isLoading && error && (
-            <b className={css.notification}>Error!!!</b>
-          )}
+          {!isLoading && error && <b className={css.notification}>Error!!!</b>}
         </div>
       )}
-      {pendingMatches.length !== 0 && (
+      {completedMatches.length !== 0 && (
         <ul className={css.contactsList}>
-          {pendingMatches.map(contact => {
-            const myindex = pendingMatches.indexOf(contact);
+          {console.log(completedMatches)}
+          {completedMatches.map(contact => {
+            const myindex = completedMatches.indexOf(contact);
             if (
               myindex >= lowerLimit &&
               myindex < upperLimit 
@@ -181,8 +181,8 @@ export const TasksPendingList = ({ children }) => {
             Prev
           </button>
         )}
-        {!(upperLimit > pendingMatches.length) &&
-          upperLimit !== pendingMatches.length && (
+        {!(upperLimit > completedMatches.length) &&
+          upperLimit !== completedMatches.length && (
             <button className={css.navigationButton} onClick={handleForward}>
               Forward
             </button>

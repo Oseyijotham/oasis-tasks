@@ -14,11 +14,19 @@ export const selectOpenSortedAllModal = state => state.contacts.contacts.openMyA
 
 export const selectOpenSortedPendingModal = state => state.contacts.contacts.openMyPendingModal;
 
+export const selectOpenSortedCompletedModal = state => state.contacts.contacts.openMyCompletedModal;
+
+export const selectOpenSortedPastDueModal = state => state.contacts.contacts.openMyPastDueModal;
+
 export const selectedContact = state => state.contacts.contacts.selectedContact;
 
 export const selectedSortedAllContact = state => state.contacts.contacts.selectedSortedAllContact;
 
 export const selectedSortedPendingContact = state => state.contacts.contacts.selectedSortedPendingContact;
+
+export const selectedSortedCompletedContact = state => state.contacts.contacts.selectedSortedCompletedContact;
+
+export const selectedSortedPastDueContact = state => state.contacts.contacts.selectedSortedPastDueContact;
 
 export const selectedIsSlideLoading = state => state.contacts.contacts.isSlideLoading;
 

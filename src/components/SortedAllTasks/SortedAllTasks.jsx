@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import {
   fetchContacts,
   closeSortedAllModal,
-  updateContactAvatar,
+  updateSortedAllContactAvatar,
   updateSortedAllContactName,
   updateSortedAllContactEmail,
   updateSortedAllContactPhone,
@@ -187,7 +187,7 @@ export const Contacts = () => {
      //dispatch(updateAvatar({ avatar: file }));
      //console.log({ avatar: file });
      if (file) {
-       dispatch(updateContactAvatar({ myFile: file, myId: id })); // Store the file under the key "avatar"
+       dispatch(updateSortedAllContactAvatar({ myFile: file, myId: id })); // Store the file under the key "avatar"
      }
    };
 

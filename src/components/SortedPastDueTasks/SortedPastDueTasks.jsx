@@ -1,24 +1,24 @@
-import { TasksPendingList } from '../TasksPendingList/TasksPendingList';
+import { TasksPastDueList } from '../TasksPastDueList/TasksPastDueList';
 import { Filter } from '../Filter/Filter';
 import { useEffect } from 'react';
 import {
   fetchContacts,
-  closeSortedPendingModal,
-  updateSortedPendingContactAvatar,
-  updateSortedPendingContactName,
-  updateSortedPendingContactEmail,
-  updateSortedPendingContactPhone,
+  closeSortedPastDueModal,
+  updateSortedPastDueContactAvatar,
+  updateSortedPastDueContactName,
+  updateSortedPastDueContactEmail,
+  updateSortedPastDueContactPhone,
 } from '../../redux/AppRedux/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import {
   selectError,
   selectIsLoading,
-  selectOpenSortedPendingModal,
-  selectedSortedPendingContact,
+  selectOpenSortedPastDueModal,
+  selectedSortedPastDueContact,
   selectedIsSlideLoading,
 } from '../../redux/AppRedux/selectors';
-import css from './SortedPendingTasks.module.css';
+import css from './SortedPastDueTasks.module.css';
 import svg from './icons.svg';
 import { ThreeCircles } from 'react-loader-spinner';
 import { useState } from 'react';
@@ -32,7 +32,7 @@ export const Contacts = () => {
   const [isNameEditing, setNameEdit] = useState(false);
   const [nameValue, setNameValue] = useState("");
   const [isEmailEditing, setEmailEdit] = useState(false);
-   const myContact = useSelector(selectedSortedPendingContact);
+   const myContact = useSelector(selectedSortedPastDueContact);
   const [emailValue, setEmailValue] = useState(myContact.email);
    const [isPhoneEditing, setPhoneEdit] = useState(false);
    const [dateValue, setDateValue] = useState('');
@@ -43,9 +43,9 @@ export const Contacts = () => {
   const isSlideLoading = useSelector(selectedIsSlideLoading);
  
   const error = useSelector(selectError);
-   const isOpenModal = useSelector(selectOpenSortedPendingModal);
+   const isOpenModal = useSelector(selectOpenSortedPastDueModal);
  const handleModalClose = () => {
-   dispatch(closeSortedPendingModal());
+   dispatch(closeSortedPastDueModal());
    setNameEdit(false);
    setEmailEdit(false);
   };
@@ -83,7 +83,7 @@ export const Contacts = () => {
     
      if (nameValue.trim() !== '') {
        const idValue = evt.target.name;
-       dispatch(updateSortedPendingContactName({ name: nameValue, myUpdateId: idValue }));
+       dispatch( updateSortedPastDueContactName({ name: nameValue, myUpdateId: idValue }));
        setNameEdit(false);
      } else if (nameValue.trim() === '') {
        Notiflix.Notify.warning('Input is required');
@@ -129,7 +129,7 @@ export const Contacts = () => {
    const handleEmailSave = evt => {
      if (emailValue.trim() !== '') {
        const idValue = evt.target.name;
-       dispatch(updateSortedPendingContactEmail({ email: emailValue, myUpdateId: idValue }));
+       dispatch(updateSortedPastDueContactEmail({ email: emailValue, myUpdateId: idValue }));
        setEmailEdit(false);
      } else if (emailValue.trim() === '') {
        Notiflix.Notify.warning('Input is required');
@@ -164,7 +164,7 @@ export const Contacts = () => {
       Notiflix.Notify.failure('Invalid date, choose a date in the future');
     }
     else{
-      dispatch(updateSortedPendingContactPhone({ phone: date, myUpdateId: idValue }));
+      dispatch(updateSortedPastDueContactPhone({ phone: date, myUpdateId: idValue }));
     }
       setPhoneEdit(false);
     
@@ -187,7 +187,7 @@ export const Contacts = () => {
      //dispatch(updateAvatar({ avatar: file }));
      //console.log({ avatar: file });
      if (file) {
-       dispatch(updateSortedPendingContactAvatar({ myFile: file, myId: id })); // Store the file under the key "avatar"
+       dispatch(updateSortedPastDueContactAvatar({ myFile: file, myId: id })); // Store the file under the key "avatar"
      }
    };
 
@@ -246,7 +246,11 @@ export const Contacts = () => {
         Please wait...
       </b>
 
-      {error && <b className={css.notificationShow}>There was an error, logout and login again!!!</b>}
+      {error && (
+        <b className={css.notificationShow}>
+          There was an error, logout and login again!!!
+        </b>
+      )}
       <div
         className={clsx(css.contactsDetailsHide, {
           [css.contactsDetailsShow]: isOpenModal,
@@ -345,7 +349,6 @@ export const Contacts = () => {
                 {isEmailEditing === false ? (
                   <pre className={css.detailsDetailsVal}>
                     <i className={css.detail}>{myContact.email}</i>
-                    {console.log(myContact.email)}
                   </pre>
                 ) : (
                   <textarea
@@ -464,8 +467,7 @@ export const Contacts = () => {
           [css.selected]: isOpenModal,
         })}
       >
-        <div></div>
-        <TasksPendingList />
+        <TasksPastDueList />
       </div>
     </div>
   );

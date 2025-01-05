@@ -18,6 +18,8 @@ const Home = lazy(() => import('../Home/Home'));
 const SharedFooter = lazy(() => import('../SharedFooter/SharedFooter'));
 const SortedAllTasks = lazy(() => import('../SortedAllTasks/SortedAllTasks'));
 const SortedPendingTasks = lazy(() => import('../SortedPendingTasks/SortedPendingTasks'));
+const SortedCompletedTasks = lazy(() => import('../SortedCompletedTasks/SortedCompletedTasks'));
+const SortedPastDueTasks = lazy(() => import('../SortedPastDueTasks/SortedPastDueTasks'));
 
 export const App = () => {
   const { isRefreshing } = useAuthHook();
@@ -85,14 +87,14 @@ export const App = () => {
             <Route
               path="completed"
               element={
-                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+                <PrivateRoute redirectTo="/" component={<SortedCompletedTasks />} />
               }
             />
 
             <Route
               path="past_due"
               element={
-                <PrivateRoute redirectTo="/" component={<SortedAllTasks />} />
+                <PrivateRoute redirectTo="/" component={<SortedPastDueTasks />} />
               }
             />
           </Route>
