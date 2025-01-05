@@ -215,6 +215,7 @@ const contactsSlice = createSlice({
 
       .addCase(fetchSortedAllContactById.pending, state => {
         state.contacts.isSlideLoading = true;
+        state.contacts.selectedSortedAllContact.avatarURL = null;
       })
       .addCase(fetchSortedAllContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedAllContact = action.payload;
@@ -233,6 +234,7 @@ const contactsSlice = createSlice({
 
       .addCase(fetchSortedCompletedContactById.pending, state => {
         state.contacts.isSlideLoading = true;
+        state.contacts.selectedSortedCompletedContact.avatarURL = null;
       })
       .addCase(fetchSortedCompletedContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedCompletedContact = action.payload;
@@ -251,6 +253,7 @@ const contactsSlice = createSlice({
 
       .addCase(fetchSortedPastDueContactById.pending, state => {
         state.contacts.isSlideLoading = true;
+        state.contacts.selectedSortedPastDueContact.avatarURL = null;
       })
       .addCase(fetchSortedPastDueContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedPastDueContact = action.payload;
@@ -269,6 +272,7 @@ const contactsSlice = createSlice({
 
       .addCase(fetchSortedPendingContactById.pending, state => {
         state.contacts.isSlideLoading = true;
+        state.contacts.selectedSortedPendingContact.avatarURL = null;
       })
       .addCase(fetchSortedPendingContactById.fulfilled, (state, action) => {
         state.contacts.selectedSortedPendingContact = action.payload;
