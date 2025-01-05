@@ -202,9 +202,9 @@ const contactsSlice = createSlice({
       });*/
       .addCase(fetchContactById.pending, state => {
         state.contacts.isSlideLoading = true;
+        state.contacts.selectedContact.avatarURL = null;
       })
       .addCase(fetchContactById.fulfilled, (state, action) => {
-        state.contacts.selectedContact.avatarURL = null;
         state.contacts.selectedContact = action.payload;
         state.contacts.isSlideLoading = false;
       })
