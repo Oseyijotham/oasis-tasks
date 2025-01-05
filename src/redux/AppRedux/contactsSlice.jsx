@@ -204,6 +204,7 @@ const contactsSlice = createSlice({
         state.contacts.isSlideLoading = true;
       })
       .addCase(fetchContactById.fulfilled, (state, action) => {
+        state.contacts.selectedContact.avatarURL = null;
         state.contacts.selectedContact = action.payload;
         state.contacts.isSlideLoading = false;
       })
