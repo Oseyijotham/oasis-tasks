@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/oasis-tasks/static/css/main.75a04abc.css",
-    "main.js": "/oasis-tasks/static/js/main.0346502e.js",
+    "main.js": "/oasis-tasks/static/js/main.ec56b4c5.js",
     "static/css/775.0bd0d511.chunk.css": "/oasis-tasks/static/css/775.0bd0d511.chunk.css",
     "static/js/775.b35e0fdc.chunk.js": "/oasis-tasks/static/js/775.b35e0fdc.chunk.js",
     "static/css/294.5833d1d4.chunk.css": "/oasis-tasks/static/css/294.5833d1d4.chunk.css",
@@ -26,7 +26,7 @@
     "index.html": "/oasis-tasks/index.html",
     "static/media/list2.svg": "/oasis-tasks/static/media/list2.80ad48137f85041f94408deac00baa26.svg",
     "main.75a04abc.css.map": "/oasis-tasks/static/css/main.75a04abc.css.map",
-    "main.0346502e.js.map": "/oasis-tasks/static/js/main.0346502e.js.map",
+    "main.ec56b4c5.js.map": "/oasis-tasks/static/js/main.ec56b4c5.js.map",
     "775.0bd0d511.chunk.css.map": "/oasis-tasks/static/css/775.0bd0d511.chunk.css.map",
     "775.b35e0fdc.chunk.js.map": "/oasis-tasks/static/js/775.b35e0fdc.chunk.js.map",
     "294.5833d1d4.chunk.css.map": "/oasis-tasks/static/css/294.5833d1d4.chunk.css.map",
@@ -50,6 +50,6 @@
   },
   "entrypoints": [
     "static/css/main.75a04abc.css",
-    "static/js/main.0346502e.js"
+    "static/js/main.ec56b4c5.js"
   ]
 }
