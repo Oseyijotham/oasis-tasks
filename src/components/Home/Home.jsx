@@ -72,7 +72,7 @@ export const Home = () => {
         <div className={css.detailsImageWrapper}>
           <img
             className={css.detailsImage}
-            src={`http://localhost:8000${myUser.avatarURL}`}
+            src={`https://oasis-tasks-backend.onrender.com${myUser.avatarURL}`}
             alt="User"
           />
         </div>

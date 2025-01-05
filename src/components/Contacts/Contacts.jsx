@@ -250,7 +250,11 @@ export const Contacts = () => {
             Please wait...
           </b>
 
-          {error && <b className={css.notificationShow}>There was an error, logout and login again!!!</b>}
+          {error && (
+            <b className={css.notificationShow}>
+              There was an error, logout and login again!!!
+            </b>
+          )}
           <div
             className={clsx(css.contactsDetailsHide, {
               [css.contactsDetailsShow]: isOpenModal,
@@ -278,7 +282,7 @@ export const Contacts = () => {
             <div className={css.detailsImageWrapper}>
               <img
                 className={css.detailsImage}
-                src={`http://localhost:8000${myContact.avatarURL}`}
+                src={`https://oasis-tasks-backend.onrender.com${myContact.avatarURL}`}
                 alt="Contact"
               />
             </div>

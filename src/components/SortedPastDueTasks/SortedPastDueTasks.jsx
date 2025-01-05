@@ -278,7 +278,7 @@ export const Contacts = () => {
         <div className={css.detailsImageWrapper}>
           <img
             className={css.detailsImage}
-            src={`http://localhost:8000${myContact.avatarURL}`}
+            src={`https://oasis-tasks-backend.onrender.com${myContact.avatarURL}`}
             alt="Contact"
           />
         </div>
