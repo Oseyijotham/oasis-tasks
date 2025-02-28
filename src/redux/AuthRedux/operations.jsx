@@ -2,7 +2,9 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Notiflix from 'notiflix';
 
-axios.defaults.baseURL = 'https://oasis-tasks-backend.onrender.com/api';
+//axios.defaults.baseURL = 'https://oasis-tasks-backend.onrender.com/api';
+
+axios.defaults.baseURL = 'http://localhost:8000/api';
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
